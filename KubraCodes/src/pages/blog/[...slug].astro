@@ -1,0 +1,36 @@
+---
+import { fetchBlogPostBySlug } from '../../lib/contentful';
+import { fetchBlogPosts } from '../../lib/contentful';
+
+export async function getStaticPaths() {
+  const posts = await fetchBlogPosts();
+
+  return posts.map((post) => ({
+    params: { slug: post.slug }, // Ensure this matches the `[...slug].astro` route
+    props: { post },
+  }));
+}
+
+const { slug } = Astro.params;
+const post = await fetchBlogPostBySlug(slug);
+
+if (!post) {
+  throw new Error(`No blog post found for slug: ${slug}`);
+}
+
+const { title, body } = post.fields;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{title}</title>
+  </head>
+  <body>
+    <article>
+      <h1>{title}</h1>
+      <!-- If your body field contains HTML, you can render it using innerHTML -->
+      <div innerHTML={body}></div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+---
+const { date } = Astro.props;
+
+let formattedDate = "Unknown Date";
+if (date) {
+  const d = new Date(date);
+  if (!isNaN(d.getTime())) {
+    formattedDate = d.toISOString().split("T")[0]; // Outputs YYYY-MM-DD
+  }
+}
+---
+<span>{formattedDate}</span>
