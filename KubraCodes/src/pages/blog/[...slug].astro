@@ -1,33 +1,172 @@
 ---
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import BaseHead from "../../components/BaseHead.astro";
 import { fetchBlogPostBySlug, fetchBlogPosts } from "../../lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 export async function getStaticPaths() {
   const posts = await fetchBlogPosts();
   return posts.map((post) => ({
-    params: { slug: post.slug }, // ✅ Astro now knows what slugs to generate
+    params: { slug: post.slug },
   }));
 }
+
 const { slug } = Astro.params;
 const post = await fetchBlogPostBySlug(slug);
 if (!post) {
   throw new Error(`No blog post found for slug: ${slug}`);
 }
-const { title, shortDescription, featuredImage, content } = post;
+
+const {
+  title,
+  shortDescription,
+  featuredImage,
+  content,
+  author,
+  publishedDate,
+  relatedBlogPosts,
+} = post;
 ---
 
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
+    <BaseHead
+      title={title?.toString() || ""}
+      description={shortDescription?.toString() || title?.toString() || ""}
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+      }
+      main {
+        width: 80%;
+        max-width: 960px;
+        margin: 40px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+      h2 {
+        text-align: center;
+        color: #6c757d;
+        margin-bottom: 10px;
+      }
+      .meta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+      .meta img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+      .featured-image {
+        width: 100%;
+        border-radius: 12px;
+        margin: 20px 0;
+      }
+      .content {
+        margin-top: 1.5rem;
+        line-height: 1.8;
+        font-size: 1rem;
+      }
+      .related-articles {
+        margin-top: 40px;
+      }
+      .related-articles h3 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .related-list {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .related-post {
+        width: 300px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        text-align: center;
+      }
+      .related-post img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+      .related-post h4 {
+        padding: 10px;
+        font-size: 1rem;
+      }
+      .related-post a {
+        display: block;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 0 0 12px 12px;
+      }
+      .related-post a:hover {
+        background: #0056b3;
+      }
+    </style>
   </head>
   <body>
-    <article>
-      <h1>{title}</h1>
-      {shortDescription && <h2>{shortDescription}</h2>}
-      {featuredImage && <img src={featuredImage} />}
-      <div set:html={content} />
-    </article>
+    <Header />
+    <main>
+      <article>
+        <h1>{title}</h1>
+        {shortDescription && <h2>{shortDescription}</h2>}
+
+        <!-- Author and Date -->
+        <div class="meta">
+          <span>🖊 {author}</span> | <span>📅 {publishedDate}</span>
+        </div>
+
+        <!-- Featured Image -->
+        {featuredImage && <img class="featured-image" src={featuredImage} />}
+
+        <!-- Blog Content -->
+        <div class="content" set:html={content} />
+
+        <!-- Related Articles -->
+        {
+          relatedBlogPosts.length > 0 && (
+            <div class="related-articles">
+              <h3>Related Articles</h3>
+              <div class="related-list">
+                {relatedBlogPosts.map(
+                  (related: { title: unknown; slug: any }) => (
+                    <div class="related-post">
+                      <img
+                        src={`https://via.placeholder.com/300x180?text=${related.title}`}
+                      />
+                      <h4>{related.title}</h4>
+                      <a href={`/blog/${related.slug}`}>Read More</a>
+                    </div>
+                  ),
+                )}
+              </div>
+            </div>
+          )
+        }
+      </article>
+    </main>
+    <Footer />
   </body>
 </html>
