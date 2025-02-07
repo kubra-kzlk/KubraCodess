@@ -85,13 +85,13 @@ console.log(posts.map((post) => post.featuredImage));
 			.search-bar {
 				margin-bottom: 1rem;
 				padding: 1rem;
-				background: #f0f0f0;
+				background: blue;
 				border-radius: 8px;
 			}
 			.search-bar input {
 				width: 100%;
 				padding: 0.5rem;
-				border: 1px solid #ccc;
+				border: 1px solid blue;
 				border-radius: 4px;
 			}
 			.tags {
@@ -102,7 +102,7 @@ console.log(posts.map((post) => post.featuredImage));
 			}
 			.tag {
 				background: rgb(var(--accent));
-				color: white;
+				color: black;
 				padding: 0.25rem 0.5rem;
 				border-radius: 4px;
 				font-size: 0.875rem;
@@ -132,20 +132,15 @@ console.log(posts.map((post) => post.featuredImage));
 		</style>
 	</head>
 	<body>
-		<Header>
-			{
-				Astro.url.pathname.startsWith("/blog/") && (
-					<div class="search-bar">
-						<input
-							type="text"
-							id="searchInput"
-							placeholder="Search by tag..."
-						/>
-					</div>
-				)
-			}
-		</Header>
+		<Header />
 		<main>
+			<div class="search-bar">
+				<input
+					type="text"
+					id="searchInput"
+					placeholder="Search by tag..."
+				/>
+			</div>
 			<section>
 				<ul>
 					{
@@ -205,26 +200,22 @@ console.log(posts.map((post) => post.featuredImage));
 				const searchTerm = searchInput.value.toLowerCase().trim();
 
 				blogItems.forEach((item) => {
-					// Ensure that item is an HTMLElement before accessing .style
 					const blogItem = item as HTMLElement;
-
-					// Ensure querySelector results in an HTMLElement (null check)
-					const titleElement = blogItem.querySelector(
-						".title",
-					) as HTMLElement | null;
 					const tags = blogItem.getAttribute("data-tags") || "";
-					const title = titleElement
-						? titleElement.innerText.toLowerCase()
-						: "";
 
-					if (
-						tags.includes(searchTerm) ||
-						title.includes(searchTerm)
-					) {
-						blogItem.style.display = "block";
-					} else {
-						blogItem.style.display = "none";
-					}
+					// Convert all tags to lowercase for case-insensitive search
+					const tagList = tags.toLowerCase().split(", ");
+
+					// Allow searching by multiple words
+					const searchWords = searchTerm.split(" ");
+
+					// Check if any search word matches any tag
+					const matches = searchWords.some((word) =>
+						tagList.some((tag) => tag.includes(word)),
+					);
+
+					// Show or hide blog item based on match
+					blogItem.style.display = matches ? "block" : "none";
 				});
 			});
 		}
