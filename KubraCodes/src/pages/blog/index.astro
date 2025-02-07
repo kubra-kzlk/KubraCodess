@@ -14,13 +14,14 @@ const posts = (await fetchBlogPosts())
 	)
 	.map((post) => ({
 		...post,
-		publishedDate: new Date(post.publishedDate as string).toISOString(), // Convert to valid date format
+		publishedDate: new Date(post.publishedDate as string).toISOString(),
 		featuredImage: post.featuredImage || "", // Extract image URL from Contentful asset
 		title: typeof post.title === "string" ? post.title : "Untitled Post",
 		subtitle:
 			typeof post.subtitle === "string"
 				? post.subtitle
 				: "No description available",
+		tags: Array.isArray(post.tags) ? post.tags : [], // Ensure tags are an array
 	}))
 	.sort(
 		(a, b) =>
@@ -81,6 +82,31 @@ console.log(posts.map((post) => post.featuredImage));
 				margin: 0;
 				color: rgb(var(--gray));
 			}
+			.search-bar {
+				margin-bottom: 1rem;
+				padding: 1rem;
+				background: #f0f0f0;
+				border-radius: 8px;
+			}
+			.search-bar input {
+				width: 100%;
+				padding: 0.5rem;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+			.tags {
+				margin: 0.5rem 0;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+			}
+			.tag {
+				background: rgb(var(--accent));
+				color: white;
+				padding: 0.25rem 0.5rem;
+				border-radius: 4px;
+				font-size: 0.875rem;
+			}
 			ul li a:hover h4,
 			ul li a:hover .date {
 				color: rgb(var(--accent));
@@ -106,31 +132,60 @@ console.log(posts.map((post) => post.featuredImage));
 		</style>
 	</head>
 	<body>
-		<Header />
+		<Header>
+			{
+				Astro.url.pathname.startsWith("/blog/") && (
+					<div class="search-bar">
+						<input
+							type="text"
+							id="searchInput"
+							placeholder="Search by tag..."
+						/>
+					</div>
+				)
+			}
+		</Header>
 		<main>
 			<section>
 				<ul>
 					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.slug}/`}>
-									<img
-										src={post.featuredImage}
-										width="720"
-										height="360"
-										onerror="console.log('Image failed to load:', this.src)"
-									/>
-									<h4 class="title">{post.title}</h4>
-									{post.publishedDate ? (
-										<FormattedDate
-											date={post.publishedDate}
+						posts.map((post) => {
+							console.log("Post tags:", post.tags);
+							return (
+								<li
+									class="blog-item"
+									data-tags={post.tags.join(", ")}
+								>
+									<a href={`/blog/${post.slug || ""}/`}>
+										<img
+											src={post.featuredImage}
+											width="720"
+											height="360"
+											onerror="console.log('Image failed to load:', this.src)"
 										/>
-									) : (
-										<p>No date available</p>
-									)}
-								</a>
-							</li>
-						))
+										<h4 class="title">{post.title}</h4>
+										{post.publishedDate ? (
+											<FormattedDate
+												date={post.publishedDate}
+											/>
+										) : (
+											<p>No date available</p>
+										)}
+
+										{/* Render tags */}
+										{post.tags.length > 0 && (
+											<div class="tags">
+												{post.tags.map((tag) => (
+													<span class="tag">
+														{tag}
+													</span>
+												))}
+											</div>
+										)}
+									</a>
+								</li>
+							);
+						})
 					}
 				</ul>
 			</section>
@@ -138,3 +193,40 @@ console.log(posts.map((post) => post.featuredImage));
 		<Footer />
 	</body>
 </html>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const searchInput = document.getElementById(
+			"searchInput",
+		) as HTMLInputElement;
+		const blogItems = document.querySelectorAll(".blog-item");
+
+		if (searchInput) {
+			searchInput.addEventListener("input", function () {
+				const searchTerm = searchInput.value.toLowerCase().trim();
+
+				blogItems.forEach((item) => {
+					// Ensure that item is an HTMLElement before accessing .style
+					const blogItem = item as HTMLElement;
+
+					// Ensure querySelector results in an HTMLElement (null check)
+					const titleElement = blogItem.querySelector(
+						".title",
+					) as HTMLElement | null;
+					const tags = blogItem.getAttribute("data-tags") || "";
+					const title = titleElement
+						? titleElement.innerText.toLowerCase()
+						: "";
+
+					if (
+						tags.includes(searchTerm) ||
+						title.includes(searchTerm)
+					) {
+						blogItem.style.display = "block";
+					} else {
+						blogItem.style.display = "none";
+					}
+				});
+			});
+		}
+	});
+</script>
