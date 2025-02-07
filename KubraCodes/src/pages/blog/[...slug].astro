@@ -1,36 +1,33 @@
 ---
-import { fetchBlogPostBySlug } from '../../lib/contentful';
-import { fetchBlogPosts } from '../../lib/contentful';
+import { fetchBlogPostBySlug, fetchBlogPosts } from "../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 export async function getStaticPaths() {
   const posts = await fetchBlogPosts();
-
   return posts.map((post) => ({
-    params: { slug: post.slug }, // Ensure this matches the `[...slug].astro` route
-    props: { post },
+    params: { slug: post.slug }, // ✅ Astro now knows what slugs to generate
   }));
 }
-
 const { slug } = Astro.params;
 const post = await fetchBlogPostBySlug(slug);
-
 if (!post) {
   throw new Error(`No blog post found for slug: ${slug}`);
 }
-
-const { title, body } = post.fields;
+const { title, shortDescription, featuredImage, content } = post;
 ---
 
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
   </head>
   <body>
     <article>
       <h1>{title}</h1>
-      <!-- If your body field contains HTML, you can render it using innerHTML -->
-      <div innerHTML={body}></div>
+      {shortDescription && <h2>{shortDescription}</h2>}
+      {featuredImage && <img src={featuredImage} />}
+      <div set:html={content} />
     </article>
   </body>
 </html>

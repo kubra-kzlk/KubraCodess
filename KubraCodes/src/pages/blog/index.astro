@@ -1,25 +1,36 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import FormattedDate from '../../components/FormattedDate.astro';
-import { fetchBlogPosts } from '../../lib/contentful';
-
-//const rawPosts = await fetchBlogPosts();
-//console.log("Fetched Posts:", rawPosts); // ✅ Debugging
-//const posts = rawPosts
-  //.filter((post) => post.fields && post.fields.publishedDate) // ✅ Ensure valid structure
-  //.sort((a, b) => new Date(b.fields.publishedDate) - new Date(a.fields.publishedDate));
-
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import FormattedDate from "../../components/FormattedDate.astro";
+import { fetchBlogPosts } from "../../lib/contentful";
 
 const posts = (await fetchBlogPosts())
-  .filter((post) => post.publishedDate) 
-  .sort(
-  (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)
-  );
+	.filter(
+		(post) =>
+			typeof post.publishedDate === "string" &&
+			post.publishedDate.trim() !== "",
+	)
+	.map((post) => ({
+		...post,
+		publishedDate: new Date(post.publishedDate as string).toISOString(), // Convert to valid date format
+		featuredImage: post.featuredImage || "", // Extract image URL from Contentful asset
+		title: typeof post.title === "string" ? post.title : "Untitled Post",
+		subtitle:
+			typeof post.subtitle === "string"
+				? post.subtitle
+				: "No description available",
+	}))
+	.sort(
+		(a, b) =>
+			new Date(b.publishedDate).getTime() -
+			new Date(a.publishedDate).getTime(),
+	); // Sort by newest first
 
+console.log(posts.map((post) => post.featuredImage));
 ---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -99,16 +110,28 @@ const posts = (await fetchBlogPosts())
 		<main>
 			<section>
 				<ul>
-					{posts.map((post) => (
-    <li>
-      <a href={`/blog/${post.slug}/`}>
-        <img src={post.heroImage} alt={post.title} width="720" height="360" />
-        <h4 class="title">{post.title}</h4>
-        <p class="subtitle">{post.subtitle}</p>
-        {post.publishedDate ? <FormattedDate date={post.publishedDate} /> : <p>No date available</p>} 
-      </a>
-    </li>
-  ))}
+					{
+						posts.map((post) => (
+							<li>
+								<a href={`/blog/${post.slug}/`}>
+									<img
+										src={post.featuredImage}
+										width="720"
+										height="360"
+										onerror="console.log('Image failed to load:', this.src)"
+									/>
+									<h4 class="title">{post.title}</h4>
+									{post.publishedDate ? (
+										<FormattedDate
+											date={post.publishedDate}
+										/>
+									) : (
+										<p>No date available</p>
+									)}
+								</a>
+							</li>
+						))
+					}
 				</ul>
 			</section>
 		</main>
