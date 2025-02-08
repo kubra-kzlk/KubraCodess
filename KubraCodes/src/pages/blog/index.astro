@@ -28,13 +28,21 @@ const posts = (await fetchBlogPosts())
 			new Date(b.publishedDate).getTime() -
 			new Date(a.publishedDate).getTime(),
 	); // Sort by newest first
-
-console.log(posts.map((post) => post.featuredImage));
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
+		{
+			/* lucide is a library that provides a collection of icons that can be used in web apps */
+		}
+		<script src="https://unpkg.com/lucide@latest"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				lucide.createIcons(); // Initialize icons from CDN
+			});
+		</script>
+
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			main {
@@ -133,6 +141,8 @@ console.log(posts.map((post) => post.featuredImage));
 	</head>
 	<body>
 		<Header />
+		<i data-lucide="message-circle" style="stroke: black; " ></i>
+
 		<main>
 			<div class="search-bar">
 				<input
@@ -185,10 +195,12 @@ console.log(posts.map((post) => post.featuredImage));
 				</ul>
 			</section>
 		</main>
+
 		<Footer />
 	</body>
 </html>
 <script>
+	// Function to filter blog items based on tags
 	document.addEventListener("DOMContentLoaded", function () {
 		const searchInput = document.getElementById(
 			"searchInput",
