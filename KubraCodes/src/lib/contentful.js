@@ -15,7 +15,7 @@ const managementClient = createManagementClient({
 export async function fetchLandingPage() {
   const entries = await client.getEntries({
     content_type: 'pageLanding', // Content type ID for the landing page
-    include: 2, // Include linked entries (e.g., seoFields, featuredBlogPost)
+    include: 2, // Include linked entries ( seoFields, featuredBlogPost)
   });
 
   if (!entries.items.length) return null;
@@ -23,8 +23,8 @@ export async function fetchLandingPage() {
   const item = entries.items[0];
   return {
     internalName: item.fields.internalName || 'Landing Page',
-    seoFields: item.fields.seoFields?.fields || null, // Include SEO fields if needed
-    featuredBlogPost: item.fields.featuredBlogPost?.fields || null, // Include featured blog post if needed
+    seoFields: item.fields.seoFields?.fields || null, // Include SEO fields
+    featuredBlogPost: item.fields.featuredBlogPost?.fields || null, 
   };
 }
 
@@ -74,7 +74,7 @@ export async function fetchBlogPostBySlug(slug) {
   const entries = await client.getEntries({
     content_type: 'pageBlogPost',
     'fields.slug': slug,
-    include: 2, // To include linked entries (e.g., author, related posts, SEO fields)
+    include: 2, // To include linked entries ( author, related posts, SEO fields)
   });
 
   if (!entries.items.length) return null;

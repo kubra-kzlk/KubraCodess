@@ -1,0 +1,193 @@
+---
+import Layout from "../layouts/BlogPost.astro";
+
+const projects = [
+    {
+        title: "Orchestra API",
+        date: "JUNE 2024",
+        image: "/orchestra-api-preview.jpg",
+        description:
+            "An API centered around Countries, Orchestras and Musicians, with ASP.NET Core both as MVC and as a Minimal API, and a local MySQL database via Entity Framework.",
+        link: "https://github.com/yourusername/orchestra-api",
+        linkType: "github",
+        tags: ["school project", "asp.net", "c#", "mysql"],
+    },
+    {
+        title: "Judo Club",
+        date: "MAY 2024",
+        image: "/judo-club-preview.jpg",
+        description:
+            "Website for a judo club in Wordpress with membership management.",
+        link: "#",
+        linkType: "view",
+        tags: ["school project", "cms", "wordpress", "php", "css"],
+    },
+];
+---
+
+<Layout
+    title="Projects"
+    description="My programming projects showcase"
+    pubDate={new Date("2024-02-09")}
+    heroImage={"/blog-placeholder-about.jpg"}
+>
+    <div class="projects-grid">
+        {
+            projects.map((project) => (
+                <article class="project-card">
+                    <div class="image-container">
+                        <img
+                            src={project.image || "/placeholder.svg"}
+                            alt={project.title}
+                        />
+                    </div>
+                    <div class="content">
+                        <h2>{project.title}</h2>
+                        <p class="date">{project.date}</p>
+                        <a
+                            href={project.link}
+                            class="project-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {project.linkType === "github" ? (
+                                <i data-lucide="github" class="icon" />
+                            ) : (
+                                <i data-lucide="search" class="icon" />
+                            )}
+                        </a>
+                        <p class="description">{project.description}</p>
+                        <a href={project.link} class="read-more">
+                            Read more
+                        </a>
+                        <div class="tags">
+                            {project.tags.map((tag) => (
+                                <span class="tag">#{tag}</span>
+                            ))}
+                        </div>
+                    </div>
+                </article>
+            ))
+        }
+    </div>
+</Layout>
+
+<style>
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .project-card {
+        background-color: #f0f7ff; /* Light blue background instead of beige */
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .image-container {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .project-card:hover .image-container img {
+        transform: scale(1.05);
+    }
+
+    .content {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        color: #2c5282; /* Dark blue instead of burgundy */
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    .date {
+        color: #4a5568;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .project-link {
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+        color: #2c5282; /* Dark blue */
+    }
+
+    .description {
+        color: #4a5568;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .read-more {
+        color: #2c5282; /* Dark blue */
+        text-decoration: none;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .read-more:hover {
+        text-decoration: underline;
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tag {
+        background-color: #bee3f8; /* Light blue */
+        color: #2c5282; /* Dark blue */
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .tag:hover {
+        background-color: #90cdf4; /* Slightly darker blue on hover */
+    }
+
+    @media (max-width: 768px) {
+        .projects-grid {
+            grid-template-columns: 1fr;
+            padding: 1rem;
+        }
+    }
+</style>
+
+<!-- Lucide CDN script -->
+<script is:inline src="https://unpkg.com/lucide@latest"></script>
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+    });
+</script>

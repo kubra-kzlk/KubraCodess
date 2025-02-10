@@ -1,13 +1,338 @@
 ---
 import Layout from "../layouts/BlogPost.astro";
+
+const technologies = [
+	// Row 1
+	{ name: "HTML5", icon: "file-code" },
+	{ name: "CSS3", icon: "css3" },
+	{ name: "JavaScript", icon: "file-json" },
+	{ name: "MySQL", icon: "database" },
+	{ name: "C#", icon: "code-2" },
+	{ name: ".NET Core", icon: "boxes" },
+	{ name: "Node.js", icon: "nodes" },
+	{ name: "npm", icon: "package" },
+	{ name: "TypeScript", icon: "file-type" },
+	{ name: "Express", icon: "server" },
+	{ name: "MongoDB", icon: "database" },
+	{ name: "Bootstrap", icon: "layout-grid" },
+	// Row 2
+	{ name: "React", icon: "component" },
+	{ name: "Git", icon: "git-branch" },
+	{ name: "WordPress", icon: "pencil" },
+	{ name: "GitHub", icon: "github" },
+	{ name: "PHP", icon: "code" },
+	{ name: "Neo4j", icon: "network" },
+	{ name: "jQuery", icon: "script" },
+	{ name: "Sass", icon: "palette" },
+	{ name: "Docker", icon: "container" },
+	{ name: "Webpack", icon: "package-2" },
+	{ name: "PostCSS", icon: "css3" },
+	{ name: "XML", icon: "brackets" },
+	// Row 3
+	{ name: "JSON", icon: "braces" },
+	{ name: "Photoshop", icon: "image" },
+];
 ---
 
 <Layout
-
 	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={"2021-08-08"}
-	heroImage="/blog-placeholder-about.jpg"
+	description="Learn about my experience and skills as an IT developer"
+	pubDate={new Date("2025-01-01")}
+>
+	<!-- Lucide CDN script -->
+	<script is:inline src="https://unpkg.com/lucide@latest"></script>
+	<script is:inline>
+		document.addEventListener("DOMContentLoaded", () => {
+			lucide.createIcons();
+		});
+	</script>
 
-/>
+	<div class="hello-section">
+		<div class="profile-container">
+			<img
+				src={"/profile-image.jpg"}
+				alt="Profile"
+				class="profile-image"
+			/>
+			<div class="profile-content">
+				<h1>My Story</h1>
+				<p>
+					I’ve always been fascinated by the power of technology and
+					its ability to bring ideas to life. My work is driven by
+					curiosity and a commitment to learning something new every
+					day. Whether it’s building dynamic websites, creating
+					seamless user experiences, or tackling backend challenges, I
+					enjoy every step of the development process. On this site,
+					I’ll be sharing my experience during my internship at
+					Provinciehuis Antwerpen. Here, you’ll get a glimpse of how I
+					navigate real-world challenges, contribute to exciting
+					projects, and grow as a developer in a professional
+					environment. ​​ ​Additionally, you’ll find insights into my
+					journey as a developer, my projects on Github, and the tools
+					and technologies I use. I specialize in frontend
+					technologies like React and TypeScript and thrive in backend
+					development using frameworks like ASP.NET. I’m also
+					proficient in database management systems like MySQL. I’m
+					excited to share my journey with you and hope you find
+					inspiration and motivation in my work. Feel free to connect
+					with me on LinkedIn or Github to learn more about my
+					projects and experience. I look forward to connecting with
+					you!
+				</p>
+			</div>
+		</div>
+	</div>
 
+	<div class="tie-up-section">
+		<h2>Tie up Internship</h2>
+		<div class="location-details">
+			<div class="detail-item">
+				<i data-lucide="map-pin" class="detail-icon"></i>
+				<a href="https://goo.gl/maps/your-location">
+					Kon. Elisabethlei 22, 2018 Antwerpen
+				</a>
+			</div>
+			<div class="detail-item">
+				<i data-lucide="home" class="detail-icon"></i>
+				<a href="https://www.provincieantwerpen.be">
+					Provinciehuis Antwerpen
+				</a>
+			</div>
+			<div class="detail-item">
+				<i data-lucide="code" class="detail-icon"></i>
+				<a href="#"> Back-end junior developer in integratieteam </a>
+			</div>
+			<div class="detail-item">
+				<i data-lucide="info" class="detail-icon"></i>
+				<a href="#">
+					Werkplek administratieve diensten Antwerpse provinciebestuur
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- map iframe -->
+	<!-- <div class="map-container">
+		<iframe
+			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2498.614620064987!2d4.409659776687444!3d51.21292623948629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3f7c4bdb9747f%3A0x46e3537e1e36c0d0!2sKoningin%20Elisabethlei%2022%2C%202018%20Antwerpen%2C%20Belgium!5e0!3m2!1sen!2sbe!4v1707494894949!5m2!1sen!2sbe"
+			width="100%"
+			height="450"
+			style="border:0;"
+			allowfullscreen=""
+			loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"
+		>
+		</iframe>
+	</div>-->
+
+	<div class="skills-section">
+		<h2>Experience with:</h2>
+		<h2 class="experience-text" id="experienceText">
+			Hover over a technology to see my experience
+		</h2>
+		<div class="skills-grid">
+			{
+				technologies.map((tech) => (
+					<div class="skill-item" data-technology={tech.name}>
+						<i data-lucide={tech.icon} class="tech-icon" />
+					</div>
+				))
+			}
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.skills-section {
+		padding: 2rem;
+	}
+
+	h2 {
+		color: black;
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+	}
+
+	.skills-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+		gap: 2rem;
+		justify-items: center;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.skill-item {
+		width: 60px;
+		height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		padding: 0.5rem;
+		border-radius: 8px;
+	}
+
+	.tech-icon {
+		width: 100%;
+		height: 100%;
+		stroke: #722f37; /* Burgundy color for icons */
+		stroke-width: 1.5;
+		transition: all 0.3s ease;
+	}
+
+	.skill-item:hover {
+		transform: scale(1.1);
+		background-color: beige; /* Lighter beige on hover */
+	}
+
+	.skill-item:hover .tech-icon {
+		stroke: #8b3d46; /* Lighter burgundy on hover */
+	}
+
+	.experience-text {
+		text-align: center;
+		margin-top: 2rem;
+		min-height: 2rem;
+		color: #722f37;
+		font-size: 1.1rem;
+		font-weight: 500;
+	}
+	.hello-section {
+		padding: 4rem 2rem;
+		background-color: white;
+	}
+
+	.profile-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.profile-image {
+		width: 100%;
+		max-width: 400px;
+		height: auto;
+		border-radius: 4px;
+	}
+
+	.profile-content h1 {
+		font-size: 3rem;
+		margin-bottom: 1.5rem;
+		color: #000;
+	}
+
+	.profile-content p {
+		font-size: 1.1rem;
+		line-height: 1.6;
+		margin-bottom: 2rem;
+		color: #333;
+	}
+
+	.social-links {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.social-icon {
+		width: 24px;
+		height: 24px;
+		color: #000;
+		transition: color 0.3s ease;
+	}
+
+	.social-icon:hover {
+		color: #666;
+	}
+
+	.tie-up-section {
+		padding: 4rem 2rem;
+		background-color: #000;
+		color: white;
+	}
+
+	.tie-up-section h2 {
+		font-size: 3rem;
+		margin-bottom: 2rem;
+		color: white;
+		max-width: 1200px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.location-details {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.detail-item {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.detail-icon {
+		width: 24px;
+		height: 24px;
+		color: white;
+	}
+
+	.detail-item a {
+		color: white;
+		text-decoration: none;
+		transition: opacity 0.3s ease;
+	}
+
+	.detail-item a:hover {
+		opacity: 0.8;
+	}
+
+	.map-container {
+		width: 100%;
+		max-width: 1200px;
+		margin: 2rem auto;
+		padding: 0 2rem;
+	}
+
+	@media (max-width: 768px) {
+		.profile-container {
+			grid-template-columns: 1fr;
+			text-align: center;
+		}
+
+		.profile-image {
+			margin: 0 auto;
+		}
+
+		.social-links {
+			justify-content: center;
+		}
+	}
+</style>
+
+<script>
+	// Update experience text on hover
+	const skillItems = document.querySelectorAll(".skill-item");
+	const experienceText = document.getElementById("experienceText");
+
+	skillItems.forEach((item) => {
+		item.addEventListener("mouseenter", () => {
+			const technology = item.getAttribute("data-technology");
+			experienceText.textContent = `Experienced in: ${technology}`;
+			item.style.backgroundColor = "#FFF0DB";
+		});
+
+		item.addEventListener("mouseleave", () => {
+			experienceText.textContent =
+				"Hover over a technology to see my experience";
+			item.style.backgroundColor = "transparent";
+		});
+	});
+</script>
