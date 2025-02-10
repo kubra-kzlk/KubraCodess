@@ -319,19 +319,23 @@ const technologies = [
 
 <script>
 	// Update experience text on hover
-	const skillItems = document.querySelectorAll(".skill-item");
+	const skillItems = document.querySelectorAll<HTMLElement>(".skill-item");
 	const experienceText = document.getElementById("experienceText");
 
 	skillItems.forEach((item) => {
 		item.addEventListener("mouseenter", () => {
 			const technology = item.getAttribute("data-technology");
-			experienceText.textContent = `Experienced in: ${technology}`;
+			if (experienceText) {
+				experienceText.textContent = `Experienced in: ${technology}`;
+			}
 			item.style.backgroundColor = "#FFF0DB";
 		});
 
 		item.addEventListener("mouseleave", () => {
-			experienceText.textContent =
-				"Hover over a technology to see my experience";
+			if (experienceText) {
+				experienceText.textContent =
+					"Hover over a technology to see my experience";
+			}
 			item.style.backgroundColor = "transparent";
 		});
 	});

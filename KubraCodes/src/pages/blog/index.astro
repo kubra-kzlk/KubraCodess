@@ -39,7 +39,7 @@ const posts = (await fetchBlogPosts())
 		<script src="https://unpkg.com/lucide@latest"></script>
 		<script>
 			document.addEventListener("DOMContentLoaded", () => {
-				lucide.createIcons(); // Initialize icons from CDN
+				(window as any).lucide.createIcons(); // Initialize icons from CDN
 			});
 		</script>
 
@@ -104,6 +104,7 @@ const posts = (await fetchBlogPosts())
 
 		<Footer />
 	</body>
+</html>
 </html>
 <script>
 	// Function to filter blog items based on tags
