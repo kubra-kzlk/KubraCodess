@@ -8,6 +8,10 @@ const client = createClient({
   accessToken: import.meta.env.PUBLIC_CONTENTFUL_ACCESS_TOKEN,
 });
 
+console.log("CONTENTFUL_SPACE_ID:", process.env.CONTENTFUL_SPACE_ID);
+console.log("CONTENTFUL_ACCESS_TOKEN:", process.env.CONTENTFUL_ACCESS_TOKEN);
+
+
 const managementClient = createManagementClient({
   accessToken: import.meta.env.PUBLIC_CONTENTFUL_MANAGEMENT_TOKEN,
 });
