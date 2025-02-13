@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import Layout from "../layouts/Layout.astro";
 import { fetchLandingPage, fetchBlogPostBySlug } from "../lib/contentful";
 // Fetch the landing page data from Contentful
 const landingPage = await fetchLandingPage();
@@ -10,7 +11,8 @@ const landingPage = await fetchLandingPage();
 if (!landingPage) {
 	throw new Error("Landing page data not found in Contentful.");
 }
-const { internalName, seoFields, featuredBlogPost } = landingPage;
+const { internalName, seoFields, featuredBlogPost, landingpageImage } =
+	landingPage;
 
 // Fetch blog posts if needed (e.g., for the featured blog post)
 // Fetch the featured blog post by its slug
@@ -32,14 +34,21 @@ const featuredPost = featuredBlogPost
 		<main>
 			<h1>{internalName}</h1>
 			<div>
+				<img
+					src={landingpageImage}
+					alt="Kubra Kizikilic"
+					width="120"
+					height="60"
+					loading="lazy"
+				/>
 				<p>
-					Hi, I'm Kubra Kizikilic, IT developer based in Antwerp,
-					Belgium. I'm currently pursuing an Associate Degree in
-					Programming at Artesis Plantijn Hogeschool Antwerpen, where
-					I'm enhancing my skills in web development and software
-					engineering.
+					I'm Kubra Kizikilic, IT developer based in Antwerp, Belgium.
+					I'm currently pursuing an Associate Degree in Programming at
+					Artesis Plantijn Hogeschool Antwerpen, where I'm enhancing
+					my skills in web development and software engineering.
 				</p>
 			</div>
+			<p></p>
 
 			<!-- Render the featured blog post if it exists -->
 			{

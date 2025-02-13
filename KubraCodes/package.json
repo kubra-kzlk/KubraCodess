@@ -17,5 +17,9 @@
     "contentful": "^11.4.5",
     "contentful-management": "^11.47.1",
     "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.1",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }

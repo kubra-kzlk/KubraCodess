@@ -1,6 +1,7 @@
 import { createClient } from 'contentful';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import pkg from 'contentful-management';
+import { BLOCKS } from '@contentful/rich-text-types'; //om images in content in te laden
 const { createClient: createManagementClient } = pkg;
 
 const client = createClient({
@@ -19,7 +20,7 @@ const managementClient = createManagementClient({
 export async function fetchLandingPage() {
   const entries = await client.getEntries({
     content_type: 'pageLanding', // Content type ID for the landing page
-    include: 2, // Include linked entries ( seoFields, featuredBlogPost)
+    include: 3, // Include linked entries ( seoFields, featuredBlogPost)
   });
 
   if (!entries.items.length) return null;
@@ -29,6 +30,7 @@ export async function fetchLandingPage() {
     internalName: item.fields.internalName || 'Landing Page',
     seoFields: item.fields.seoFields?.fields || null, // Include SEO fields
     featuredBlogPost: item.fields.featuredBlogPost?.fields || null, 
+    landingpageImage: item.fields.landingpageImage?.fields?.file?.url ? `https:${item.fields.landingpageImage.fields.file.url}` : '',
   };
 }
 
@@ -73,12 +75,22 @@ async function fetchTagsForEntry(entryId) {
     return [];
   }
 }
+const options = {
+  renderNode: {
+    [BLOCKS.EMBEDDED_ASSET]: (node) => {
+      const url = node?.data?.target?.fields?.file?.url;
+      if (!url) return ''; // Prevent errors if no image is found
+      const alt = node?.data?.target?.fields?.title || 'Image';
+      return `<img src="https:${url}" alt="${alt}" style="max-width: 100%; display: block; margin: 10px auto;" />`;
+    },
+  },
+};
 
 export async function fetchBlogPostBySlug(slug) {
   const entries = await client.getEntries({
     content_type: 'pageBlogPost',
     'fields.slug': slug,
-    include: 2, // To include linked entries ( author, related posts, SEO fields)
+    include: 3, // Increase depth to ensure images are included
   });
 
   if (!entries.items.length) return null;
@@ -90,7 +102,7 @@ export async function fetchBlogPostBySlug(slug) {
   let convertedContent = '';
 
   try {
-    convertedContent = documentToHtmlString(item.fields.content);
+    convertedContent = documentToHtmlString(item.fields.content, options);
   } catch (error) {
     console.error('Error converting Rich Text to HTML:', error);
   }
@@ -105,10 +117,13 @@ export async function fetchBlogPostBySlug(slug) {
     author: item.fields.author?.fields?.name || 'Unknown',
     seoFields: item.fields.seoFields || null,
     content: convertedContent,
-    relatedBlogPosts:
-      item.fields.relatedBlogPosts?.map((post) => ({
-        title: post.fields.title,
-        slug: post.fields.slug,
-      })) || [],
+   relatedBlogPosts:
+  item.fields.relatedBlogPosts
+    ?.filter(post => post?.fields) // Ensure post exists and has fields
+    .map((post) => ({
+      title: post.fields.title || 'Untitled',
+      slug: post.fields.slug || '',
+    })) || [],
+
   };
-}
+} 
