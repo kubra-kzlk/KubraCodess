@@ -1,0 +1,115 @@
+---
+const theme =
+    typeof document !== "undefined" ? localStorage.getItem("theme") : "light";
+---
+
+<!-- Toggle using a div (styled as a switch) -->
+<div
+    id="theme-toggle"
+    class="theme-toggle p-2 rounded-full cursor-pointer transition-colors"
+    role="button"
+    aria-label="Toggle theme"
+>
+    <!-- Icon for the toggle switch -->
+    <span
+        class="toggle-circle w-6 h-6 bg-white rounded-full absolute left-0 top-0 transition-all"
+    ></span>
+    <span id="theme-icon" class="absolute left-2 top-2 text-xl">
+        {theme === "dark" ? "🌙" : "☀️"}
+    </span>
+</div>
+
+<script type="module">
+    // Set the initial theme on page load
+    if (typeof document !== "undefined") {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.classList.toggle(
+            "dark",
+            savedTheme === "dark",
+        );
+        // Set the initial state of the toggle based on the theme
+        const toggle = document.getElementById("theme-toggle");
+        if (toggle) {
+            toggle.classList.toggle("dark", savedTheme === "dark");
+        }
+
+        // Set the initial icon based on the theme
+        const themeIcon = document.getElementById("theme-icon");
+        if (themeIcon) {
+            themeIcon.textContent = savedTheme === "dark" ? "🌙" : "☀️";
+        }
+    }
+
+    // Add event listener for the theme toggle
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            const currentTheme = localStorage.getItem("theme") || "light";
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+            // Toggle the theme
+            document.documentElement.classList.toggle(
+                "dark",
+                newTheme === "dark",
+            );
+            localStorage.setItem("theme", newTheme);
+
+            // Update the position of the toggle switch
+            themeToggle.classList.toggle("dark", newTheme === "dark");
+
+            // Update the icon to reflect the current theme
+            const themeIcon = document.getElementById("theme-icon");
+            if (themeIcon) {
+                themeIcon.textContent = newTheme === "dark" ? "🌙" : "☀️";
+            }
+        });
+    }
+</script>
+
+<style>
+    .theme-toggle {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 30px;
+        background-color: #ccc;
+        border-radius: 30px;
+        transition: background-color 0.3s ease;
+    }
+
+    .toggle-circle {
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        transition: left 0.3s ease;
+    }
+
+    .theme-toggle.dark {
+        background-color: #4b6cb7; /* Dark theme background */
+    }
+
+    .theme-toggle.dark .toggle-circle {
+        left: 18px; /* Move the toggle circle to the right */
+    }
+
+    /* Dark mode theme for the body */
+    html.dark {
+        background-color: #333;
+        color: white;
+    }
+
+    /* Style for the moon and sun icons */
+    #theme-icon {
+        font-size: 18px;
+        color: #333;
+        transition:
+            left 0.3s ease,
+            opacity 0.3s ease;
+    }
+
+    /* Icon style when dark theme is active */
+    .theme-toggle.dark #theme-icon {
+        left: 18px; /* Move icon to the right side */
+        opacity: 0;
+    }
+</style>

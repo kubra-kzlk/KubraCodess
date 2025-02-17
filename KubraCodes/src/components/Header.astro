@@ -1,10 +1,11 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
+import ThemeToggle from "./common/ThemeToggle.astro";
 ---
 
-<header>
-	<nav>
+<header class="p-4 bg-white dark:bg-gray-900">
+	<nav class="flex justify-between items-center">
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
@@ -13,9 +14,7 @@ import { SITE_TITLE } from "../consts";
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 
-		<div>
-			<!-- light / dark theme toggle -->
-		</div>
+		<div><ThemeToggle /></div>
 	</nav>
 </header>
 <style>
