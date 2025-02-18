@@ -4,9 +4,11 @@ import { SITE_TITLE } from "../consts";
 import ThemeToggle from "./common/ThemeToggle.astro";
 ---
 
+
+
 <header class="p-4 bg-white dark:bg-gray-900">
 	<nav class="flex justify-between items-center">
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2><a href="/"><img src="/logoName.svg" alt={SITE_TITLE} /></a></h2>		
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
@@ -27,6 +29,7 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 	h2 {
 		margin: 0;
 		font-size: 1em;
+		width: 150px;
 	}
 
 	h2 a,
