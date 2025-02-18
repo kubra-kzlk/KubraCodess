@@ -4,11 +4,11 @@ import { SITE_TITLE } from "../consts";
 import ThemeToggle from "./common/ThemeToggle.astro";
 ---
 
-
-
 <header class="p-4 bg-white dark:bg-gray-900">
 	<nav class="flex justify-between items-center">
-		<h2><a href="/"><img src="/logoName.svg" alt={SITE_TITLE} /></a></h2>		
+		<h2>
+			<a href="/"><img src="/logoNameBg.png" alt={SITE_TITLE} /></a>
+		</h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
@@ -40,16 +40,18 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		
 	}
 	nav a {
 		padding: 1em 0.5em;
 		color: var(--black);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
+		color: #ba5765;
 	}
 	nav a.active {
 		text-decoration: none;
-		border-bottom-color: var(--accent);
+		border-bottom-color: #ba5765; ;
 	}
 
 	@media (max-width: 720px) {
