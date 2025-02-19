@@ -1,37 +1,44 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { fetchLandingPage } from "../lib/contentful";
 
-const technologies = [
-	// Row 1
-	{ name: "HTML5", icon: "file-code" },
-	{ name: "CSS3", icon: "css3" },
-	{ name: "JavaScript", icon: "file-json" },
-	{ name: "MySQL", icon: "database" },
-	{ name: "C#", icon: "code-2" },
-	{ name: ".NET Core", icon: "boxes" },
-	{ name: "Node.js", icon: "nodes" },
-	{ name: "npm", icon: "package" },
-	{ name: "TypeScript", icon: "file-type" },
-	{ name: "Express", icon: "server" },
-	{ name: "MongoDB", icon: "database" },
-	{ name: "Bootstrap", icon: "layout-grid" },
-	// Row 2
-	{ name: "React", icon: "component" },
-	{ name: "Git", icon: "git-branch" },
-	{ name: "WordPress", icon: "pencil" },
-	{ name: "GitHub", icon: "github" },
-	{ name: "PHP", icon: "code" },
-	{ name: "Neo4j", icon: "network" },
-	{ name: "jQuery", icon: "script" },
-	{ name: "Sass", icon: "palette" },
-	{ name: "Docker", icon: "container" },
-	{ name: "Webpack", icon: "package-2" },
-	{ name: "PostCSS", icon: "css3" },
-	{ name: "XML", icon: "brackets" },
-	// Row 3
-	{ name: "JSON", icon: "braces" },
-	{ name: "Photoshop", icon: "image" },
-];
+const landingPage = await fetchLandingPage();
+const { landingpageImage } = landingPage || {};
+	landingPage;
+	const technologies = [
+  { name: "HTML5", icon: "fab fa-html5" },
+  { name: "CSS", icon: "fab fa-css3" },
+  { name: "JavaScript", icon: "fab fa-js" },
+  { name: "MySQL", icon: "fas fa-database" },
+  { name: "C#", icon: "fab fa-cuttlefish" },
+  { name: ".NET Core", icon: "fab fa-microsoft" },
+  { name: "Node.js", icon: "fab fa-node" },
+  { name: "npm", icon: "fab fa-npm" },
+  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "Express", icon: "fas fa-server" },
+  { name: "MongoDB", icon: "fas fa-database" },
+  { name: "Bootstrap", icon: "fab fa-bootstrap" },
+  { name: "React", icon: "fab fa-react" },
+  { name: "Git", icon: "fab fa-git" },
+  { name: "GitHub", icon: "fab fa-github" },
+  { name: "Docker", icon: "fab fa-docker" },
+  { name: "XML", icon: "fas fa-code" },
+  { name: "JSON", icon: "fas fa-code" },
+  { name: "Jira", icon: "fab fa-jira" },
+  { name: "Microsoft Azure", icon: "fab fa-microsoft" },
+  { name: "Bicep", icon: "fas fa-code" },
+  { name: "Contentful", icon: "fas fa-cogs" },
+  { name: "Python", icon: "fab fa-python" },
+  { name: "Angular", icon: "fab fa-angular" },
+  { name: "Visual Studio", icon: "fas fa-laptop-code" },
+  { name: "Visual Studio Code", icon: "fab fa-vscode" },
+  { name: "R", icon: "fas fa-chart-line" },
+  { name: "Trello", icon: "fab fa-trello" },
+  { name: "Figma", icon: "fab fa-figma" },
+  { name: "Wireshark", icon: "https://www.vectorlogo.zone/logos/wireshark/wireshark-icon.svg" },
+  ];
+
+
 ---
 
 <Layout
@@ -39,18 +46,12 @@ const technologies = [
 	description="Learn about my experience and skills as an IT developer"
 	pubDate={new Date("2025-01-01")}
 >
-	<!-- Lucide CDN script -->
-	<script is:inline src="https://unpkg.com/lucide@latest"></script>
-	<script is:inline>
-		document.addEventListener("DOMContentLoaded", () => {
-			lucide.createIcons();
-		});
-	</script>
+	
 
 	<div class="hello-section">
 		<div class="profile-container">
 			<img
-				src={"/profile-image.jpg"}
+				src={landingpageImage}
 				alt="Profile"
 				class="profile-image"
 			/>
@@ -126,16 +127,15 @@ const technologies = [
 	</div>-->
 
 	<div class="skills-section">
-		<h2>Experience with:</h2>
-		<h2 class="experience-text" id="experienceText">
+		<h2  id="experienceText">
 			Hover over a technology to see my experience
 		</h2>
 		<div class="skills-grid">
 			{
 				technologies.map((tech) => (
 					<div class="skill-item" data-technology={tech.name}>
-						<i data-lucide={tech.icon} class="tech-icon" />
-					</div>
+						  <i class={`tech-icon ${tech.icon}`} />				
+				</div>
 				))
 			}
 		</div>
@@ -148,7 +148,7 @@ const technologies = [
 	}
 
 	h2 {
-		color: black;
+		color: #ba5765;
 		font-size: 1.5rem;
 		margin-bottom: 2rem;
 	}
@@ -175,33 +175,24 @@ const technologies = [
 	}
 
 	.tech-icon {
-		width: 100%;
-		height: 100%;
-		stroke: #722f37; /* Burgundy color for icons */
+		font-size: 3rem;
+		color: #ba5765;
 		stroke-width: 1.5;
 		transition: all 0.3s ease;
 	}
 
 	.skill-item:hover {
 		transform: scale(1.1);
-		background-color: beige; /* Lighter beige on hover */
+		background-color: #ba5765; 
 	}
 
 	.skill-item:hover .tech-icon {
-		stroke: #8b3d46; /* Lighter burgundy on hover */
-	}
-
-	.experience-text {
-		text-align: center;
-		margin-top: 2rem;
-		min-height: 2rem;
-		color: #722f37;
-		font-size: 1.1rem;
-		font-weight: 500;
+		stroke: #ba5765
 	}
 	.hello-section {
 		padding: 4rem 2rem;
 		background-color: white;
+		color: #ba5765;
 	}
 
 	.profile-container {
@@ -223,14 +214,14 @@ const technologies = [
 	.profile-content h1 {
 		font-size: 3rem;
 		margin-bottom: 1.5rem;
-		color: #000;
+		color: #ba5765;
 	}
 
 	.profile-content p {
 		font-size: 1.1rem;
 		line-height: 1.6;
 		margin-bottom: 2rem;
-		color: #333;
+		color: #ba5765;
 	}
 
 	.social-links {
@@ -241,24 +232,23 @@ const technologies = [
 	.social-icon {
 		width: 24px;
 		height: 24px;
-		color: #000;
+		color: #ba5765;
 		transition: color 0.3s ease;
 	}
 
 	.social-icon:hover {
-		color: #666;
+		color: #ba5765;
 	}
 
 	.tie-up-section {
 		padding: 4rem 2rem;
-		background-color: #000;
 		color: white;
 	}
 
 	.tie-up-section h2 {
 		font-size: 3rem;
 		margin-bottom: 2rem;
-		color: white;
+		color:#ba5765 ;
 		max-width: 1200px;
 		margin-left: auto;
 		margin-right: auto;
@@ -281,11 +271,11 @@ const technologies = [
 	.detail-icon {
 		width: 24px;
 		height: 24px;
-		color: white;
+		color:#ba5765 ;
 	}
 
 	.detail-item a {
-		color: white;
+		color:#ba5765 ;
 		text-decoration: none;
 		transition: opacity 0.3s ease;
 	}
