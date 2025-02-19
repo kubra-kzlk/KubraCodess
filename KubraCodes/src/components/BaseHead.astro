@@ -3,9 +3,11 @@
 // all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
 import { SITE_TITLE } from "../consts";
+import { SITE_DESCRIPTION } from "../consts";
 
 interface Props {
 	title: string;
+	description: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -23,6 +25,7 @@ const { title = "/blog-placeholder-1.jpg" } = Astro.props;
 	title={SITE_TITLE}
 	href={new URL("rss.xml", Astro.site)}
 />
+<meta name="description" content={SITE_DESCRIPTION} /> 
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->

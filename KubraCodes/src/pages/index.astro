@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE } from "../consts";
+import {    SITE_DESCRIPTION } from "../consts";
 import Layout from "../layouts/Layout.astro";
 import { fetchLandingPage, fetchBlogPostBySlug } from "../lib/contentful";
 // Fetch the landing page data from Contentful
@@ -26,6 +27,7 @@ const featuredPost = featuredBlogPost
 	<head>
 		<BaseHead
 			title={seoFields?.title || SITE_TITLE}
+			description={seoFields?.description || SITE_DESCRIPTION}
 		/>
 	</head>
 	<body>
