@@ -3,42 +3,37 @@ const theme =
     typeof document !== "undefined" ? localStorage.getItem("theme") : "light";
 ---
 
-<!-- Toggle using a div (styled as a switch) -->
+<!-- Theme Toggle Button -->
 <div
     id="theme-toggle"
     class="theme-toggle p-2 rounded-full cursor-pointer transition-colors"
     role="button"
     aria-label="Toggle theme"
 >
-    <!-- Icon for the toggle switch -->
-    <span
-        class="toggle-circle w-6 h-6 bg-white rounded-full absolute left-0 top-0 transition-all"
-    ></span>
-    <span id="theme-icon" class="absolute left-2 top-2 text-xl">
-        {theme === "dark" ? "🌙" : "☀️"}
+    <!-- Toggle Circle contains the icon -->
+    <span class="toggle-circle w-6 h-6 bg-white rounded-full flex items-center justify-center transition-all">
+        <span id="theme-icon">☀️</span>
     </span>
 </div>
 
 <script type="module">
-    // Set the initial theme on page load
-    if (typeof document !== "undefined") {
+    // ✅ Ensure the correct icon position on page load
+    window.addEventListener("DOMContentLoaded", () => {
         const savedTheme = localStorage.getItem("theme") || "light";
-        document.documentElement.classList.toggle(
-            "dark",
-            savedTheme === "dark",
-        );
-        // Set the initial state of the toggle based on the theme
-        const toggle = document.getElementById("theme-toggle");
-        if (toggle) {
-            toggle.classList.toggle("dark", savedTheme === "dark");
+        document.documentElement.classList.toggle("dark", savedTheme === "dark");
+
+        const themeToggle = document.getElementById("theme-toggle");
+        const toggleCircle = document.querySelector(".toggle-circle");
+        const themeIcon = document.getElementById("theme-icon");
+
+        if (toggleCircle) {
+            toggleCircle.style.transform = savedTheme === "dark" ? "translateX(20px)" : "translateX(0)";
         }
 
-        // Set the initial icon based on the theme
-        const themeIcon = document.getElementById("theme-icon");
         if (themeIcon) {
             themeIcon.textContent = savedTheme === "dark" ? "🌙" : "☀️";
         }
-    }
+    });
 
     // Add event listener for the theme toggle
     const themeToggle = document.getElementById("theme-toggle");
@@ -48,14 +43,14 @@ const theme =
             const newTheme = currentTheme === "dark" ? "light" : "dark";
 
             // Toggle the theme
-            document.documentElement.classList.toggle(
-                "dark",
-                newTheme === "dark",
-            );
+            document.documentElement.classList.toggle("dark", newTheme === "dark");
             localStorage.setItem("theme", newTheme);
 
             // Update the position of the toggle switch
-            themeToggle.classList.toggle("dark", newTheme === "dark");
+            const toggleCircle = document.querySelector(".toggle-circle");
+            if (toggleCircle) {
+                toggleCircle.style.transform = newTheme === "dark" ? "translateX(20px)" : "translateX(0)";
+            }
 
             // Update the icon to reflect the current theme
             const themeIcon = document.getElementById("theme-icon");
@@ -77,19 +72,24 @@ const theme =
         transition: background-color 0.3s ease;
     }
 
+    /* Ensure the toggle circle moves */
     .toggle-circle {
         position: absolute;
+        width: 24px;
+        height: 24px;
         left: 2px;
         top: 2px;
-        transition: left 0.3s ease;
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .theme-toggle.dark {
-        background-color: #4b6cb7; /* Dark theme background */
-    }
-
+    /* Move the toggle circle to the right when dark mode is active */
     .theme-toggle.dark .toggle-circle {
-        left: 18px; /* Move the toggle circle to the right */
+        transform: translateX(20px);
     }
 
     /* Dark mode theme for the body */
@@ -100,16 +100,19 @@ const theme =
 
     /* Style for the moon and sun icons */
     #theme-icon {
-        font-size: 18px;
-        color: #333;
-        transition:
-            left 0.3s ease,
-            opacity 0.3s ease;
+        font-size: 14px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
-    /* Icon style when dark theme is active */
+    /* Ensure the icon moves with the toggle */
     .theme-toggle.dark #theme-icon {
-        left: 18px; /* Move icon to the right side */
+        transform: translateX(0);
         opacity: 0;
     }
+    .theme-toggle:not(.dark) #theme-icon {
+        opacity: 1;
+    }
+  
+
+
 </style>
