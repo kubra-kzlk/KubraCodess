@@ -97,7 +97,7 @@ export async function fetchBlogPostBySlug(slug) {
 
   const item = entries.items[0];
 
-  console.log('🔍 Contentful Response:', JSON.stringify(item.fields.content, null, 2));
+  //console.log('🔍 Contentful Response:', JSON.stringify(item.fields.content, null, 2));
 
   let convertedContent = '';
 
