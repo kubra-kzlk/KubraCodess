@@ -7,7 +7,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description,pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 let formattedDate = "Unknown Date";
 if (pubDate) {
@@ -22,70 +22,25 @@ if (pubDate) {
 <html lang="en">
 	<head>
 		<link
-		rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-	  />
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+		/>
+		{
+			/* lucide is a library that provides a collection of icons that can be used in web apps */
+		}
+		<script src="https://unpkg.com/lucide@latest"></script>
 		<script>
-			(function () {
-				const theme =
-					localStorage.getItem("theme") ||
-					(window.matchMedia("(prefers-color-scheme: dark)").matches
-						? "dark"
-						: "light");
-				document.documentElement.classList.toggle(
-					"dark",
-					theme === "dark",
-				);
-			})();
+			document.addEventListener("DOMContentLoaded", () => {
+				(window as any).lucide.createIcons(); // Initialize icons from CDN
+			});
 		</script>
-
 		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-				
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-				color:#ba5765 ;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 
 	<body>
 		<Header>
-			<themeToggle />
+			<themeToggle></themeToggle>
 		</Header>
 		<main>
 			<article>
@@ -103,20 +58,9 @@ if (pubDate) {
 				</div>
 				<div class="prose">
 					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on{" "}
-										<FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
 						<h1>{title}</h1>
-						<hr />
 					</div>
+
 					<slot />
 				</div>
 			</article>
@@ -124,3 +68,53 @@ if (pubDate) {
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		width: calc(100% - 2em);
+		max-width: 100%;
+		color: #ba5765;
+		margin: 0;
+	}
+	.hero-image {
+		width: 100%;
+		max-width: 1020px; /* Ensures it doesn’t overflow */
+		margin: 0 auto;
+	}
+
+	.hero-image img {
+		display: block;
+		width: 100%; /* Scales image dynamically */
+		height: auto;
+		border-radius: 12px;
+		box-shadow: var(--box-shadow);
+	}
+
+	.prose {
+		width: 100%;
+		max-width: 920px;
+		margin: auto;
+		padding: 1em;
+	}
+
+	.title {
+		margin-bottom: 1em;
+		padding: 1em 0;
+		text-align: center;
+		line-height: 1;
+		color: #ba5765;
+	}
+	.title h1 {
+		margin: 0 0 0.5em 0;
+		color: #ba5765;
+	}
+	.date {
+		margin-bottom: 0.5em;
+		color: rgb(var(--gray));
+		color: #ba5765;
+	}
+	.last-updated-on {
+		font-style: italic;
+		color: #ba5765;
+	}
+</style>

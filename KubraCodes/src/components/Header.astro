@@ -5,26 +5,57 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 ---
 
 <header class="p-4 bg-white dark:bg-gray-900">
-	<nav class="flex justify-between items-center">
+	<nav class="flex justify-between items-center relative">
 		<h2>
 			<a href="/"><img src="/logoNameBg.png" alt={SITE_TITLE} /></a>
 		</h2>
-		<div class="internal-links">
+
+		<!-- Desktop Menu -->
+		<div class="desktop-menu">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/project">Projects</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 
-		<div><ThemeToggle /></div>
+		<!-- Mobile Menu Button -->
+		<button id="menu-btn" class="mobile-menu-btn" aria-label="Toggle menu">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<line x1="3" y1="12" x2="21" y2="12"></line>
+				<line x1="3" y1="6" x2="21" y2="6"></line>
+				<line x1="3" y1="18" x2="21" y2="18"></line>
+			</svg>
+		</button>
+
+		<ThemeToggle />
 	</nav>
+
+	<!-- Mobile Menu Items -->
+	<div id="mobile-menu" class="mobile-menu">
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/project">Projects</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+	</div>
 </header>
+
 <style>
 	header {
 		margin: 0;
 		padding: 0 1em;
 		background: white;
 		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+		position: relative;
 	}
 	h2 {
 		margin: 0;
@@ -40,7 +71,6 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		
 	}
 	nav a {
 		padding: 1em 0.5em;
@@ -51,12 +81,85 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 	}
 	nav a.active {
 		text-decoration: none;
-		border-bottom-color: #ba5765; ;
+		border-bottom-color: #ba5765;
+	}
+
+	.mobile-menu-btn {
+		display: none;
+		background: none;
+		border: none;
+		cursor: pointer;
+		color: #ba5765;
+		padding: 0.5em;
+	}
+
+	.mobile-menu {
+		display: none;
 	}
 
 	@media (max-width: 720px) {
-		.social-links {
+		.desktop-menu {
 			display: none;
+		}
+
+		.mobile-menu-btn {
+			display: block;
+		}
+
+		.mobile-menu {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			background: white;
+			padding: 1rem;
+			flex-direction: column;
+			align-items: center;
+			gap: 1rem;
+			z-index: 50;
+			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+		}
+
+		.mobile-menu.show {
+			display: flex;
+		}
+
+		.mobile-menu a {
+			width: 100%;
+			text-align: center;
+			padding: 0.75rem;
+			background: none;
+			border: none;
+			cursor: pointer;
+			color: #ba5765;
+		}
+
+		.dark .mobile-menu {
+			background: #1a1a1a;
+		}
+
+		.dark .mobile-menu-btn {
+			color: white;
 		}
 	}
 </style>
+
+<script>
+	function setupMobileMenu() {
+		const menuBtn = document.getElementById("menu-btn");
+		const mobileMenu = document.getElementById("mobile-menu");
+
+		if (menuBtn && mobileMenu) {
+			menuBtn.addEventListener("click", () => {
+				mobileMenu.classList.toggle("show");
+			});
+		}
+	}
+
+	// Run on initial load
+	setupMobileMenu();
+
+	// Run on view transitions
+	document.addEventListener("astro:page-load", setupMobileMenu);
+</script>

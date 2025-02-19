@@ -33,16 +33,6 @@ const posts = (await fetchBlogPosts())
 <!doctype html>
 <html lang="en">
 	<head>
-		{
-			/* lucide is a library that provides a collection of icons that can be used in web apps */
-		}
-		<script src="https://unpkg.com/lucide@latest"></script>
-		<script>
-			document.addEventListener("DOMContentLoaded", () => {
-				(window as any).lucide.createIcons(); // Initialize icons from CDN
-			});
-		</script>
-
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
@@ -105,7 +95,7 @@ const posts = (await fetchBlogPosts())
 		<Footer />
 	</body>
 </html>
-</html>
+
 <script>
 	// Function to filter blog items based on tags
 	document.addEventListener("DOMContentLoaded", function () {
@@ -176,39 +166,43 @@ const posts = (await fetchBlogPosts())
 	}
 	ul li a {
 		display: block;
+		color: #ba5765;
 	}
 	.title {
 		margin: 0;
-		color: rgb(var(--black));
+		color: #ba5765;
 		line-height: 1;
 	}
 	.date {
 		margin: 0;
-		color: rgb(var(--gray));
+		color: #ba5765;
 	}
 	.search-bar {
 		margin-bottom: 1rem;
 		padding: 1rem;
 		border-radius: 8px;
+		color: #ba5765;
 	}
 	.search-bar input {
 		width: 100%;
 		padding: 0.5rem;
 		border: 1px solid black;
 		border-radius: 4px;
+		color: #ba5765;
 	}
 	.tags {
 		margin: 0.5rem 0;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
+		color: #ba5765;
 	}
 	.tag {
 		background: rgb(var(--accent));
-		color: black;
 		padding: 0.25rem 0.5rem;
 		border-radius: 4px;
 		font-size: 0.875rem;
+		color: #ba5765;
 	}
 	ul li a:hover h4,
 	ul li a:hover .date {

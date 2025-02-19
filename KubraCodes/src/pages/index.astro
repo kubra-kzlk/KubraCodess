@@ -3,7 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE } from "../consts";
-import {    SITE_DESCRIPTION } from "../consts";
+import { SITE_DESCRIPTION } from "../consts";
 import Layout from "../layouts/Layout.astro";
 import { fetchLandingPage, fetchBlogPostBySlug } from "../lib/contentful";
 // Fetch the landing page data from Contentful
@@ -22,57 +22,66 @@ const featuredPost = featuredBlogPost
 	: null;
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead
-			title={seoFields?.title || SITE_TITLE}
-			description={seoFields?.description || SITE_DESCRIPTION}
+<Layout
+	title="This is my portfolio"
+	description={seoFields?.description || SITE_DESCRIPTION}
+	pubDate={new Date()}
+>
+	<h1>{internalName}</h1>
+	<div>
+		<img
+			src={landingpageImage}
+			alt="Kubra Kizikilic"
+			width="120"
+			height="60"
+			loading="lazy"
 		/>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>{internalName}</h1>
-			<div>
-				<img
-					src={landingpageImage}
-					alt="Kubra Kizikilic"
-					width="120"
-					height="60"
-					loading="lazy"
-				/>
-				<p>
-					I'm Kubra Kizikilic, IT developer based in Antwerp, Belgium.
-					I'm currently pursuing an Associate Degree in Programming at
-					Artesis Plantijn Hogeschool Antwerpen, where I'm enhancing
-					my skills in web development and software engineering.
-				</p>
-			</div>
-			<p></p>
-			{
-				featuredPost && (
-					<section>
-						<h2>Featured Blog Post</h2>
-						<article>
-							<h3>{featuredPost.title}</h3>
-							{featuredPost.featuredImage && (
-								<img
-									src={featuredPost.featuredImage}
-									width="1200"
-									height="600"
-									loading="lazy"
-								/>
-							)}
-							<p>{featuredPost.shortDescription}</p>
-							<a href={`/blog/${featuredPost.slug}/`}>
-								Read More
-							</a>
-						</article>
-					</section>
-				)
-			}
-		</main>
-		<Footer />
-	</body>
-</html>
+		<p>
+			I'm Kubra Kizikilic, IT developer based in Antwerp, Belgium. I'm
+			currently pursuing an Associate Degree in Programming at Artesis
+			Plantijn Hogeschool Antwerpen, where I'm enhancing my skills in web
+			development and software engineering.
+		</p>
+	</div>
+	<p></p>
+	<hr />
+	<p></p>
+	<p></p>
+	<p></p>
+	{
+		featuredPost && (
+			<section>
+				<h2>Featured Blog Post</h2>
+				<article>
+					<h3>{featuredPost.title}</h3>
+					{featuredPost.featuredImage && (
+						<img
+							src={featuredPost.featuredImage}
+							width="1200"
+							height="600"
+							loading="lazy"
+						/>
+					)}
+					<p>{featuredPost.shortDescription}</p>
+					<a href={`/blog/${featuredPost.slug}/`}>Read More</a>
+				</article>
+			</section>
+		)
+	}
+</Layout>
+
+<style>
+	h1 {
+		font-size: 2em;
+		color: #ba5765;
+	}
+	h2 {
+		color: #ba5765;
+	}
+	h3 {
+		color: #ba5765;
+	}
+	a {
+		color: #ba5765;
+	}
+</style>
