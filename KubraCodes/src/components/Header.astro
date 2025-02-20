@@ -19,7 +19,12 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 		</div>
 
 		<!-- Mobile Menu Button -->
-		<button id="menu-btn" class="mobile-menu-btn" aria-label="Toggle menu">
+		<button 
+			id="menu-btn" 
+			class="mobile-menu-btn" 
+			aria-label="Toggle menu"
+			aria-expanded="false"
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
@@ -30,6 +35,7 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 				stroke-width="2"
 				stroke-linecap="round"
 				stroke-linejoin="round"
+				class="transform transition-transform duration-200"
 			>
 				<line x1="3" y1="12" x2="21" y2="12"></line>
 				<line x1="3" y1="6" x2="21" y2="6"></line>
@@ -73,16 +79,43 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 		justify-content: space-between;
 	}
 	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-		color: #ba5765;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: #ba5765;
-	}
+    padding: 1em 0.5em;
+    color: #ba5765;
+    position: relative;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+/* Desktop hover effect */
+nav a:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 4px;
+    bottom: 0;
+    left: 50%;
+    background-color: #ba5765;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover {
+    color: #d4717f;
+}
+
+nav a:hover:before {
+    width: 100%;
+}
+
+nav a.active:before {
+    width: 100%; /* This replaces the border-bottom on active links */
+}
+
+/* Remove the following style if it exists */
+/* nav a.active {
+    text-decoration: none;
+    border-bottom-color: #ba5765;
+} */
 
 	.mobile-menu-btn {
 		display: none;
@@ -91,6 +124,11 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 		cursor: pointer;
 		color: #ba5765;
 		padding: 0.5em;
+		transition: transform 0.3s ease;
+	}
+
+	.mobile-menu-btn:hover {
+		transform: scale(1.1);
 	}
 
 	.mobile-menu {
@@ -113,16 +151,18 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 			left: 0;
 			width: 100%;
 			background: white;
-			padding: 1rem;
 			flex-direction: column;
-			align-items: center;
-			gap: 1rem;
 			z-index: 50;
 			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			transform: translateY(-10px);
+			opacity: 0;
+			transition: all 0.3s ease;
 		}
 
 		.mobile-menu.show {
 			display: flex;
+			transform: translateY(0);
+			opacity: 1;
 		}
 
 		.mobile-menu a {
@@ -133,10 +173,32 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 			border: none;
 			cursor: pointer;
 			color: #ba5765;
+			transition: all 0.3s ease;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.mobile-menu a:hover {
+			background-color: rgba(186, 87, 101, 0.1);
+			transform: translateX(5px);
+		}
+
+		.mobile-menu a.active {
+			background: #ba5765;
+			color: white;
+		}
+
+		.mobile-menu a.active:hover {
+			background: #d4717f;
+			transform: translateX(5px);
 		}
 
 		.dark .mobile-menu {
 			background: #1a1a1a;
+		}
+
+		.dark .mobile-menu a:hover {
+			background-color: rgba(186, 87, 101, 0.2);
 		}
 
 		.dark .mobile-menu-btn {
@@ -152,7 +214,27 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 
 		if (menuBtn && mobileMenu) {
 			menuBtn.addEventListener("click", () => {
+				const isExpanded = menuBtn.getAttribute("aria-expanded") === "true";
+				menuBtn.setAttribute("aria-expanded", (!isExpanded).toString());
 				mobileMenu.classList.toggle("show");
+				
+				// Rotate hamburger icon
+				const svg = menuBtn.querySelector("svg");
+				if (svg) {
+					svg.style.transform = isExpanded ? "rotate(0deg)" : "rotate(90deg)";
+				}
+			});
+
+			// Close mobile menu when clicking outside
+			document.addEventListener("click", (e) => {
+				if (!menuBtn.contains(e.target as Node) && !mobileMenu.contains(e.target as Node)) {
+					mobileMenu.classList.remove("show");
+					menuBtn.setAttribute("aria-expanded", "false");
+					const svg = menuBtn.querySelector("svg");
+					if (svg) {
+						svg.style.transform = "rotate(0deg)";
+					}
+				}
 			});
 		}
 	}
@@ -163,3 +245,4 @@ import ThemeToggle from "./common/ThemeToggle.astro";
 	// Run on view transitions
 	document.addEventListener("astro:page-load", setupMobileMenu);
 </script>
+

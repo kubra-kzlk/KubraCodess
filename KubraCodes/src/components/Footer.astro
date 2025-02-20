@@ -5,183 +5,207 @@ const today = new Date();
 <!-- Lucide CDN script  -->
 <script is:inline src="https://unpkg.com/lucide@latest"></script>
 <script is:inline>
-	document.addEventListener("DOMContentLoaded", () => {
-		lucide.createIcons();
-	});
+    document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+    });
 </script>
 
 <footer>
-	<div class="divider"></div>
-	<div class="footer-content">
-		<div class="footer-section">
-			<div class="section-header">
-				<i data-lucide="map-pin" class="icon"></i>
-				<h3>LOCATION</h3>
-			</div>
-			<p>Antwerp 2000</p>
-		</div>
+    <div class="divider"></div>
+    <div class="footer-content">
+        <div class="footer-section">
+            <div class="section-header">
+                <i data-lucide="map-pin" class="icon"></i>
+                <h3>LOCATION</h3>
+            </div>
+            <p>Antwerp 2000</p>
+        </div>
 
-		<div class="footer-section">
-			<div class="section-header">
-				<i data-lucide="Cable " class="icon"></i>
-				<h3>CONNECT</h3>
-			</div>
-			<div class="social-links">
-				<a href="https://github.com/kubra-kzlk" aria-label="Github">
-					<i data-lucide="github" class="icon"></i>
-				</a>
-				<a
-					href="https://www.linkedin.com/in/kubra-k-768284336"
-					aria-label="LinkedIn"
-				>
-					<i data-lucide="linkedin" class="icon"></i>
-				</a>
-				<a
-					href="https://www.instagram.com/kubra.kzlk?utm_source=qr&igsh=MTVwMnluYjQ1eWgzZA=="
-					aria-label="Instagram"
-				>
-					<i data-lucide="instagram" class="icon"></i>
-				</a>
-				<a
-					href="https://www.facebook.com/kubra.kizilkilic.95"
-					aria-label="Facebook"
-				>
-					<i data-lucide="facebook" class="icon"></i>
-				</a>
-			</div>
-		</div>
+        <div class="footer-section">
+            <div class="section-header">
+                <i data-lucide="Cable" class="icon"></i>
+                <h3>CONNECT</h3>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/kubra-kzlk" aria-label="Github" class="social-icon">
+                    <i data-lucide="github" class="icon"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/kubra-k-768284336" aria-label="LinkedIn" class="social-icon">
+                    <i data-lucide="linkedin" class="icon"></i>
+                </a>
+                <a href="https://www.instagram.com/kubra.kzlk?utm_source=qr&igsh=MTVwMnluYjQ1eWgzZA==" aria-label="Instagram" class="social-icon">
+                    <i data-lucide="instagram" class="icon"></i>
+                </a>
+                <a href="https://www.facebook.com/kubra.kizilkilic.95" aria-label="Facebook" class="social-icon">
+                    <i data-lucide="facebook" class="icon"></i>
+                </a>
+            </div>
+        </div>
 
-		<div class="footer-section">
-			<div class="section-header">
-				<i data-lucide="mail" class="icon"></i>
-				<h3>EMAIL</h3>
-			</div>
-			<a href="mailto:kubra.kizikilu@gmail.com" class="email-link"
-				>kubra.kizilkilic@gmail.com</a
-			>
-		</div>
+        <div class="footer-section">
+            <div class="section-header">
+                <i data-lucide="mail" class="icon"></i>
+                <h3>EMAIL</h3>
+            </div>
+            <a href="mailto:kubra.kizikilu@gmail.com" class="email-link">kubra.kizilkilic@gmail.com</a>
+        </div>
 
-		<div class="footer-section">
-			<div class="section-header">
-				<i data-lucide="message-circle" class="icon"></i>
-				<h3>FEEDBACK</h3>
-			</div>
-			<p>
-				I value your <a
-					href="https://forms.gle/4o7qfeu4HdUf7utz8"
-					class="feedback-link"
-				>
-					<strong>feedback!</strong>
-				</a> Please let me know your thoughts about my portfolio or content.
-			</p>
-		</div>
-	</div>
-	<div class="copyright">
-		<p>&copy; 2025 KubraCodes. All rights reserved.</p>
-	</div>
+        <div class="footer-section">
+            <div class="section-header">
+                <i data-lucide="message-circle" class="icon"></i>
+                <h3>FEEDBACK</h3>
+            </div>
+            <p>
+                I value your <a href="https://forms.gle/4o7qfeu4HdUf7utz8" class="feedback-link">
+                    <strong>feedback!</strong>
+                </a> Please let me know your thoughts about my portfolio or content.
+            </p>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; {today.getFullYear()} KubraCodes. All rights reserved.</p>
+    </div>
 </footer>
 
-{/* Styles for the footer component  */}
 <style>
-	footer {
-		padding: 4rem 2rem;
-		background-color: #ffffff;
-		color: #ba5765;
-	}
-	.divider {
-		height: 1px;
-		background-color: #e0e0e0;
-		margin: 0 auto 2em auto;
-		width: 80%;
-	}
-	.footer-content {
-		max-width: 1200px;
-		margin: 0 auto;
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 2rem;
-	}
+    footer {
+        padding: 4rem 2rem;
+        background-color: #ffffff;
+        color: #ba5765;
+    }
 
-	.footer-section {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
+    .divider {
+        height: 1px;
+        background-color: #e0e0e0;
+        margin: 0 auto 2em auto;
+        width: 80%;
+    }
 
-	.section-header {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-bottom: 0.5rem;
-	}
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
 
-	.section-header h3 {
-		font-size: 1rem;
-		font-weight: 600;
-		margin: 0;
-		color: #ba5765;
-	}
+    .footer-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 
-	.icon {
-		width: 20px;
-		height: 20px;
-		stroke: currentColor;
-	}
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
 
-	.social-links {
-		display: flex;
-		gap: 1rem;
-		margin-top: 0.5rem;
-	}
+    .section-header h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+        color: #ba5765;
+    }
 
-	.social-links a {
-		color: #ba5765;
-		transition: color 0.2s ease;
-	}
+    .icon {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+    }
 
-	.social-links a:hover {
-		color: #ba5765;
-	}
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
 
-	.email-link {
-		color: #ba5765;
-		text-decoration: none;
-		transition: color 0.2s ease;
-	}
+    .social-links a {
+        color: #ba5765;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
 
-	.email-link:hover {
-		color: #ba5765;
-	}
+    .social-links a:hover {
+        color: #ba5765;
+        transform: scale(1.2) rotate(5deg);
+    }
 
-	.feedback-link {
-		color: #ba5765;
-		text-decoration: none;
-	}
+    .email-link {
+        color: #ba5765;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+    }
 
-	.feedback-link:hover {
-		text-decoration: underline;
-	}
+    .email-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: #ba5765;
+        transition: width 0.3s ease;
+    }
 
-	.copyright {
-		text-align: center;
-		margin-top: 3rem;
-		color: #ba5765;
-		font-size: 0.875rem;
-	}
+    .email-link:hover {
+        color: #ba5765;
+        transform: translateY(-2px);
+    }
 
-	@media (max-width: 1024px) {
-		.footer-content {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
+    .email-link:hover::after {
+        width: 100%;
+    }
 
-	@media (max-width: 640px) {
-		.footer-content {
-			grid-template-columns: 1fr;
-		}
+    .feedback-link {
+        color: #ba5765;
+        text-decoration: none;
+        position: relative;
+        transition: all 0.3s ease;
+    }
 
-		footer {
-			padding: 2rem 1rem;
-		}
-	}
+    .feedback-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: #ba5765;
+        transition: width 0.3s ease;
+    }
+
+    .feedback-link:hover {
+        color: #ba5765;
+    }
+
+    .feedback-link:hover::after {
+        width: 100%;
+    }
+
+    .copyright {
+        text-align: center;
+        margin-top: 3rem;
+        color: #ba5765;
+        font-size: 0.875rem;
+    }
+
+    @media (max-width: 1024px) {
+        .footer-content {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 640px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+
+        footer {
+            padding: 2rem 1rem;
+        }
+    }
 </style>
