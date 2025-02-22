@@ -1,12 +1,10 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE } from "../consts";
 import { SITE_DESCRIPTION } from "../consts";
 import Layout from "../layouts/Layout.astro";
 import { fetchLandingPage, fetchBlogPostBySlug } from "../lib/contentful";
-// Fetch the landing page data from Contentful
 const landingPage = await fetchLandingPage();
 
 if (!landingPage) {
@@ -15,15 +13,13 @@ if (!landingPage) {
 const { internalName, seoFields, featuredBlogPost, landingpageImage } =
 	landingPage;
 
-// Fetch blog posts if needed (e.g., for the featured blog post)
-// Fetch the featured blog post by its slug
 const featuredPost = featuredBlogPost
 	? await fetchBlogPostBySlug(featuredBlogPost.slug)
 	: null;
 ---
 
 <Layout
-	title="This is my portfolio"
+	title="Code. Create. Deploy. Kubra Kizilklic Full-Stack Developer"
 	description={seoFields?.description || SITE_DESCRIPTION}
 	pubDate={new Date()}
 >
@@ -37,17 +33,16 @@ const featuredPost = featuredBlogPost
 			loading="lazy"
 		/>
 		<p>
-			I'm Kubra Kizikilic, IT developer based in Antwerp, Belgium. I'm
-			currently pursuing an Associate Degree in Programming at Artesis
+			I'm Kubra Kizikilic, full-stack developer based in Antwerp, Belgium.
+			I'm currently pursuing an Associate Degree in Programming at Artesis
 			Plantijn Hogeschool Antwerpen, where I'm enhancing my skills in web
 			development and software engineering.
 		</p>
 	</div>
 	<p></p>
 	<hr />
-	<p></p>
-	<p></p>
-	<p></p>
+	<br />
+	<br />
 	{
 		featuredPost && (
 			<section>
