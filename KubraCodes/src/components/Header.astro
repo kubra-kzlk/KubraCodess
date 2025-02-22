@@ -19,9 +19,9 @@ import ThemeToggle from "./ThemeToggle.astro";
 		</div>
 
 		<!-- Mobile Menu Button -->
-		<button 
-			id="menu-btn" 
-			class="mobile-menu-btn" 
+		<button
+			id="menu-btn"
+			class="mobile-menu-btn"
 			aria-label="Toggle menu"
 			aria-expanded="false"
 		>
@@ -79,43 +79,12 @@ import ThemeToggle from "./ThemeToggle.astro";
 		justify-content: space-between;
 	}
 	nav a {
-    padding: 1em 0.5em;
-    color: #ba5765;
-    position: relative;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-/* Desktop hover effect */
-nav a:before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 4px;
-    bottom: 0;
-    left: 50%;
-    background-color: #ba5765;
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-}
-
-nav a:hover {
-    color: #d4717f;
-}
-
-nav a:hover:before {
-    width: 100%;
-}
-
-nav a.active:before {
-    width: 100%; /* This replaces the border-bottom on active links */
-}
-
-/* Remove the following style if it exists */
-/* nav a.active {
-    text-decoration: none;
-    border-bottom-color: #ba5765;
-} */
+		padding: 1em 0.5em;
+		color: #ba5765;
+		position: relative;
+		transition: all 0.3s ease;
+		text-decoration: none;
+	}
 
 	/* Desktop hover effect */
 	nav a:before {
@@ -245,20 +214,26 @@ nav a.active:before {
 
 		if (menuBtn && mobileMenu) {
 			menuBtn.addEventListener("click", () => {
-				const isExpanded = menuBtn.getAttribute("aria-expanded") === "true";
+				const isExpanded =
+					menuBtn.getAttribute("aria-expanded") === "true";
 				menuBtn.setAttribute("aria-expanded", (!isExpanded).toString());
 				mobileMenu.classList.toggle("show");
-				
+
 				// Rotate hamburger icon
 				const svg = menuBtn.querySelector("svg");
 				if (svg) {
-					svg.style.transform = isExpanded ? "rotate(0deg)" : "rotate(90deg)";
+					svg.style.transform = isExpanded
+						? "rotate(0deg)"
+						: "rotate(90deg)";
 				}
 			});
 
 			// Close mobile menu when clicking outside
 			document.addEventListener("click", (e) => {
-				if (!menuBtn.contains(e.target as Node) && !mobileMenu.contains(e.target as Node)) {
+				if (
+					!menuBtn.contains(e.target as Node) &&
+					!mobileMenu.contains(e.target as Node)
+				) {
 					mobileMenu.classList.remove("show");
 					menuBtn.setAttribute("aria-expanded", "false");
 					const svg = menuBtn.querySelector("svg");
@@ -276,4 +251,3 @@ nav a.active:before {
 	// Run on view transitions
 	document.addEventListener("astro:page-load", setupMobileMenu);
 </script>
-
