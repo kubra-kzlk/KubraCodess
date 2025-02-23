@@ -1,8 +1,52 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
 import ThemeToggle from "./ThemeToggle.astro";
+//between --- and ---, is the Astro frontmatter, where you define JS/TypeScript logic that runs before the HTML is rendered
+// Import the global.css file here so that it is included on all pages through the use of the <BaseHead /> component.
+import "../styles/global.css";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { Home, Search, User } from "lucide-astro";
+
+// Define the canonical URL for the current page
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const { title = "KubraCodes" } = Astro.props;
 ---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta
+	name="viewport"
+	content="width=device-width,initial-scale=1"
+/><!-- Makes the site mobile-responsive by setting the viewport width to the device width.-->
+<link rel="sitemap" href="/sitemap-index.xml" />
+<!-- Sitemap URL: Links to the sitemap, helping search engines index your website -->
+<meta name="description" content={SITE_DESCRIPTION} />
+<meta name="title" content={SITE_TITLE} />
+<meta name="author" content="Kubra Kizilkilic" />
+
+<!-- Canonical URL;Links to the sitemap, helping search engines index your website -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags: This title appears in the browser tab and search results-->
+<title>KubraCodes</title>
+<meta name="title" content={title} />
+
+<!-- Font preloads -->
+<link
+	rel="preload"
+	href="/fonts/atkinson-regular.woff"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/atkinson-bold.woff"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
 
 <header class="p-4 bg-white dark:bg-gray-900">
 	<nav class="flex justify-between items-center relative">
@@ -12,10 +56,26 @@ import ThemeToggle from "./ThemeToggle.astro";
 
 		<!-- Desktop Menu -->
 		<div class="desktop-menu">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/project">Projects</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href="/" tooltip="Home page"
+				><Home size="16" />Home
+			</HeaderLink>
+			<HeaderLink href="/blog" tooltip="Read all my blogposts"
+				>Blog</HeaderLink
+			>
+			<HeaderLink href="/project" tooltip="Explore my projects"
+				>Projects</HeaderLink
+			>
+			<HeaderLink
+				href="/about"
+				tooltip="Learn more about me"
+				dropdown={[
+					{ label: "Web Dev", href: "/services/web" },
+					{ label: "SEO", href: "/services/seo" },
+				]}
+			>
+				<User />
+				About
+			</HeaderLink>
 		</div>
 
 		<!-- Mobile Menu Button -->

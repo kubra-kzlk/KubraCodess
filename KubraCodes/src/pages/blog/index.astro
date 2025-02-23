@@ -1,10 +1,10 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import FormattedDate from "../../components/FormattedDate.astro";
 import { fetchBlogPosts } from "../../lib/contentful";
+import { Home, Search, User } from "lucide-astro";
 
 const posts = (await fetchBlogPosts())
 	.filter(
@@ -33,15 +33,14 @@ const posts = (await fetchBlogPosts())
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<Header />
 	</head>
 	<body>
-		<Header />
 		<i data-lucide="message-circle" style="stroke: black; "></i>
 
 		<main>
 			<div class="search-bar">
-				<input
+				<Search /><input
 					type="text"
 					id="searchInput"
 					placeholder="Search by tag..."

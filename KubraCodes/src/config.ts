@@ -1,5 +1,5 @@
 export const SITE = {
-    name: "My AstroWind Site",
+    name: "KubraCodes",
     title: "KubraCodes",
     description: "",
     url: "https://example.com",

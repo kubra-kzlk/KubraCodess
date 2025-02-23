@@ -3,7 +3,6 @@ import type { CollectionEntry } from "astro:content";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-import BaseHead from "../components/BaseHead.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -34,7 +33,6 @@ if (pubDate) {
 				(window as any).lucide.createIcons(); // Initialize icons from CDN
 			});
 		</script>
-		<BaseHead title={title} description={description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 
@@ -78,7 +76,7 @@ if (pubDate) {
 	}
 	.hero-image {
 		width: 100%;
-		max-width: 1020px; 
+		max-width: 1020px;
 		margin: 0 auto;
 	}
 

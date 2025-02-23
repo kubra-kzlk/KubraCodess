@@ -1,18 +1,90 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from "astro/types";
+type Props = HTMLAttributes<"a"> & {
+	tooltip?: string;
+	dropdown?: { label: string; href: string }[];
+};
 
-type Props = HTMLAttributes<'a'>;
-
-const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
+const { href, class: className, tooltip, dropdown, ...props } = Astro.props;
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
 ---
 
 <a href={href} class:list={[className, { active: isActive }]} {...props}>
 	<slot />
+	{tooltip && <span class="tooltip">{tooltip}</span>}
+	{dropdown && <span class="arrow">▼</span>}
 </a>
+{
+	dropdown && (
+		<ul class="dropdown">
+			{dropdown.map((item) => (
+				<li>
+					<a href={item.href}>{item.label}</a>
+				</li>
+			))}
+		</ul>
+	)
+}
+
 <style>
+	.dropdown {
+		display: none;
+		position: absolute;
+		background: white;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 5px;
+		list-style: none;
+		min-width: 150px;
+		box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+		top: 100%;
+		left: 0;
+		z-index: 10;
+	}
+	.dropdown li {
+		padding: 5px;
+	}
+	a:hover + .dropdown,
+	.dropdown:hover {
+		display: block;
+	}
+
+	.dropdown li a {
+		display: flex;
+		align-items: center;
+		padding: 8px;
+		text-decoration: none;
+		color: black;
+	}
+
+	.dropdown li a:hover {
+		background: lightgray;
+	}
+
+	.arrow {
+		margin-left: 5px;
+		font-size: 12px;
+	}
+
+	.tooltip {
+		visibility: hidden;
+		background-color: black;
+		color: white;
+		text-align: center;
+		padding: 5px;
+		border-radius: 4px;
+		position: absolute;
+		z-index: 1;
+		font-size: 12px;
+		opacity: 0;
+		transition: opacity 0.2s;
+	}
+	a:hover .tooltip {
+		visibility: visible;
+		opacity: 1;
+	}
 	a {
 		display: inline-block;
 		text-decoration: none;
