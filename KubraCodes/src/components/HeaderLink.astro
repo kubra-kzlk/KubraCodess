@@ -1,11 +1,10 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 type Props = HTMLAttributes<"a"> & {
-	tooltip?: string;
 	dropdown?: { label: string; href: string }[];
 };
 
-const { href, class: className, tooltip, dropdown, ...props } = Astro.props;
+const { href, class: className, dropdown, ...props } = Astro.props;
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 const subpath = pathname.match(/[^\/]+/g);
 const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
@@ -13,8 +12,7 @@ const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
 
 <a href={href} class:list={[className, { active: isActive }]} {...props}>
 	<slot />
-	{tooltip && <span class="tooltip">{tooltip}</span>}
-	{dropdown && <span class="arrow">▼</span>}
+	{dropdown && <span class="arrow">&#9660;</span>}
 </a>
 {
 	dropdown && (
@@ -56,7 +54,7 @@ const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
 		align-items: center;
 		padding: 8px;
 		text-decoration: none;
-		color: black;
+		color: white;
 	}
 
 	.dropdown li a:hover {
@@ -68,23 +66,6 @@ const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
 		font-size: 12px;
 	}
 
-	.tooltip {
-		visibility: hidden;
-		background-color: black;
-		color: white;
-		text-align: center;
-		padding: 5px;
-		border-radius: 4px;
-		position: absolute;
-		z-index: 1;
-		font-size: 12px;
-		opacity: 0;
-		transition: opacity 0.2s;
-	}
-	a:hover .tooltip {
-		visibility: visible;
-		opacity: 1;
-	}
 	a {
 		display: inline-block;
 		text-decoration: none;

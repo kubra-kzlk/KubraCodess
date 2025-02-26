@@ -11,7 +11,9 @@ const theme =
     aria-label="Toggle theme"
 >
     <!-- Toggle Circle contains the icon -->
-    <span class="toggle-circle w-6 h-6 bg-white rounded-full flex items-center justify-center transition-all">
+    <span
+        class="toggle-circle w-6 h-6 bg-white rounded-full flex items-center justify-center transition-all"
+    >
         <span id="theme-icon">☀️</span>
     </span>
 </div>
@@ -20,14 +22,18 @@ const theme =
     // ✅ Ensure the correct icon position on page load
     window.addEventListener("DOMContentLoaded", () => {
         const savedTheme = localStorage.getItem("theme") || "light";
-        document.documentElement.classList.toggle("dark", savedTheme === "dark");
+        document.documentElement.classList.toggle(
+            "dark",
+            savedTheme === "dark",
+        );
 
         const themeToggle = document.getElementById("theme-toggle");
         const toggleCircle = document.querySelector(".toggle-circle");
         const themeIcon = document.getElementById("theme-icon");
 
         if (toggleCircle) {
-            toggleCircle.style.transform = savedTheme === "dark" ? "translateX(20px)" : "translateX(0)";
+            toggleCircle.style.transform =
+                savedTheme === "dark" ? "translateX(20px)" : "translateX(0)";
         }
 
         if (themeIcon) {
@@ -43,13 +49,17 @@ const theme =
             const newTheme = currentTheme === "dark" ? "light" : "dark";
 
             // Toggle the theme
-            document.documentElement.classList.toggle("dark", newTheme === "dark");
+            document.documentElement.classList.toggle(
+                "dark",
+                newTheme === "dark",
+            );
             localStorage.setItem("theme", newTheme);
 
             // Update the position of the toggle switch
             const toggleCircle = document.querySelector(".toggle-circle");
             if (toggleCircle) {
-                toggleCircle.style.transform = newTheme === "dark" ? "translateX(20px)" : "translateX(0)";
+                toggleCircle.style.transform =
+                    newTheme === "dark" ? "translateX(20px)" : "translateX(0)";
             }
 
             // Update the icon to reflect the current theme
@@ -101,7 +111,9 @@ const theme =
     /* Style for the moon and sun icons */
     #theme-icon {
         font-size: 14px;
-        transition: transform 0.3s ease, opacity 0.3s ease;
+        transition:
+            transform 0.3s ease,
+            opacity 0.3s ease;
     }
 
     /* Ensure the icon moves with the toggle */
@@ -112,7 +124,4 @@ const theme =
     .theme-toggle:not(.dark) #theme-icon {
         opacity: 1;
     }
-  
-
-
 </style>

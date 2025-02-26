@@ -4,7 +4,7 @@ import Footer from "../../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import FormattedDate from "../../components/FormattedDate.astro";
 import { fetchBlogPosts } from "../../lib/contentful";
-import { Home, Search, User } from "lucide-astro";
+import { Home, Search, User, X } from "lucide-astro";
 
 const posts = (await fetchBlogPosts())
 	.filter(
@@ -28,6 +28,9 @@ const posts = (await fetchBlogPosts())
 			new Date(b.publishedDate).getTime() -
 			new Date(a.publishedDate).getTime(),
 	); // Sort by newest first
+
+// get unique tags for suggestions
+const uniqueTags = [...new Set(posts.flatMap((post) => post.tags))];
 ---
 
 <!doctype html>
@@ -36,21 +39,49 @@ const posts = (await fetchBlogPosts())
 		<Header />
 	</head>
 	<body>
-		<i data-lucide="message-circle" style="stroke: black; "></i>
-
+		<!--<i data-lucide="message-circle" style="stroke: black; "></i> -->
 		<main>
-			<div class="search-bar">
-				<Search /><input
-					type="text"
-					id="searchInput"
-					placeholder="Search by tag..."
-				/>
+			<div class="search-container">
+				<div class="search-decoration-left"></div>
+				<div class="search-decoration-right"></div>
+				<div class="search-wrapper">
+					<div class="search-input-container">
+						<div class="search-icon-wrapper">
+							<Search size={20} />
+						</div>
+						<input
+							type="text"
+							id="searchInput"
+							placeholder="Search by tag..."
+							class="search-input"
+						/>
+						<button id="clearSearch" class="clear-button hidden">
+							<X size={20} />
+						</button>
+					</div>
+					<!-- Tag Suggestions -->
+					<div id="tagSuggestions" class="tag-suggestions hidden">
+						<div class="suggestions-title">Suggested tags</div>
+						<div class="suggestions-container">
+							{
+								uniqueTags.map((tag) => (
+									<button
+										class="suggestion-tag"
+										data-tag={tag}
+									>
+										{tag}
+									</button>
+								))
+							}
+						</div>
+					</div>
+				</div>
 			</div>
+			<!-- Blog Posts Section -->
 			<section>
 				<ul>
 					{
 						posts.map((post) => {
-							console.log("Post tags:", post.tags);
 							return (
 								<li
 									class="blog-item"
@@ -94,39 +125,90 @@ const posts = (await fetchBlogPosts())
 		<Footer />
 	</body>
 </html>
-
 <script>
-	// Function to filter blog items based on tags
 	document.addEventListener("DOMContentLoaded", function () {
 		const searchInput = document.getElementById(
 			"searchInput",
 		) as HTMLInputElement;
+		const clearButton = document.getElementById("clearSearch");
+		const tagSuggestions = document.getElementById("tagSuggestions");
 		const blogItems = document.querySelectorAll(".blog-item");
+		const suggestionTags = document.querySelectorAll(".suggestion-tag");
+		// Show/hide clear button
+		function toggleClearButton() {
+			if (clearButton) {
+				clearButton.classList.toggle("hidden", !searchInput.value);
+			}
+		}
 
-		if (searchInput) {
-			searchInput.addEventListener("input", function () {
-				const searchTerm = searchInput.value.toLowerCase().trim();
-
-				blogItems.forEach((item) => {
-					const blogItem = item as HTMLElement;
-					const tags = blogItem.getAttribute("data-tags") || "";
-
-					// Convert all tags to lowercase for case-insensitive search
-					const tagList = tags.toLowerCase().split(", ");
-
-					// Allow searching by multiple words
-					const searchWords = searchTerm.split(" ");
-
-					// Check if any search word matches any tag
-					const matches = searchWords.some((word) =>
-						tagList.some((tag) => tag.includes(word)),
-					);
-
-					// Show or hide blog item based on match
-					blogItem.style.display = matches ? "block" : "none";
-				});
+		// Filter blog posts
+		function filterPosts(searchTerm: string) {
+			blogItems.forEach((item) => {
+				const blogItem = item as HTMLElement;
+				const tags = blogItem.getAttribute("data-tags") || "";
+				const tagList = tags.toLowerCase().split(", ");
+				const searchWords = searchTerm.toLowerCase().split(" ");
+				const matches = searchWords.some((word) =>
+					tagList.some((tag) => tag.includes(word)),
+				);
+				blogItem.style.display =
+					matches || !searchTerm ? "block" : "none";
 			});
 		}
+
+		// Event Listeners
+		if (searchInput) {
+			searchInput.addEventListener("input", function () {
+				filterPosts(this.value);
+				toggleClearButton();
+				if (tagSuggestions) {
+					tagSuggestions.classList.toggle("hidden", !this.value);
+				}
+			});
+
+			searchInput.addEventListener("focus", function () {
+				if (this.value && tagSuggestions) {
+					tagSuggestions.classList.remove("hidden");
+				}
+			});
+		}
+
+		if (clearButton) {
+			clearButton.addEventListener("click", function () {
+				if (searchInput) {
+					searchInput.value = "";
+					filterPosts("");
+					toggleClearButton();
+					if (tagSuggestions) {
+						tagSuggestions.classList.add("hidden");
+					}
+				}
+			});
+		}
+
+		// Tag suggestion clicks
+		suggestionTags.forEach((tag) => {
+			tag.addEventListener("click", function () {
+				const tagText = this.getAttribute("data-tag");
+				if (searchInput && tagText) {
+					searchInput.value = tagText;
+					filterPosts(tagText);
+					toggleClearButton();
+				}
+			});
+		});
+
+		// Close suggestions when clicking outside
+		document.addEventListener("click", function (e) {
+			if (
+				tagSuggestions &&
+				!tagSuggestions.contains(e.target as Node) &&
+				searchInput &&
+				!searchInput.contains(e.target as Node)
+			) {
+				tagSuggestions.classList.add("hidden");
+			}
+		});
 	});
 </script>
 <style>
@@ -176,28 +258,161 @@ const posts = (await fetchBlogPosts())
 		margin: 0;
 		color: #ba5765;
 	}
-	.search-bar {
-		margin-bottom: 1rem;
-		padding: 1rem;
+	.search-container {
+		position: relative;
+		margin: 4rem auto;
+		max-width: 600px;
+		padding: 0 1rem;
+	}
+
+	.search-decoration-left,
+	.search-decoration-right {
+		position: absolute;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		opacity: 0.2;
+		filter: blur(24px);
+		z-index: 0;
+	}
+
+	.search-decoration-left {
+		background: #ba5765;
+		top: -16px;
+		left: -16px;
+	}
+
+	.search-decoration-right {
+		background: rgba(186, 87, 101, 0.6);
+		top: -8px;
+		right: -8px;
+	}
+
+	.search-wrapper {
+		position: relative;
+		z-index: 1;
+		background: rgba(255, 255, 255, 0.8);
+		backdrop-filter: blur(12px);
+		border: 1px solid rgba(186, 87, 101, 0.1);
+		border-radius: 16px;
+		overflow: hidden;
+		transition: all 0.3s ease;
+		box-shadow:
+			0 4px 6px -1px rgba(186, 87, 101, 0.1),
+			0 2px 4px -2px rgba(186, 87, 101, 0.05);
+	}
+
+	.search-wrapper:hover,
+	.search-wrapper:focus-within {
+		transform: translateY(-2px);
+		box-shadow:
+			0 8px 12px -1px rgba(186, 87, 101, 0.15),
+			0 4px 6px -2px rgba(186, 87, 101, 0.1);
+	}
+
+	.search-input-container {
+		display: flex;
+		align-items: center;
+		padding: 0.75rem;
+	}
+
+	.search-icon-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		background: linear-gradient(135deg, #ba5765, #d47281);
+		border-radius: 12px;
+		color: white;
+		transition: transform 0.3s ease;
+	}
+
+	.search-wrapper:focus-within .search-icon-wrapper {
+		transform: scale(1.05);
+	}
+
+	.search-input {
+		flex: 1;
+		margin-left: 1rem;
+		padding: 0.5rem;
+		font-size: 1rem;
+		background: transparent;
+		border: none;
+		outline: none;
+		color: #2c3e50;
+	}
+
+	.search-input::placeholder {
+		color: #999;
+	}
+
+	.clear-button {
+		padding: 0.5rem;
+		color: #999;
 		border-radius: 8px;
+		transition: all 0.2s ease;
+	}
+
+	.clear-button:hover {
+		background: rgba(186, 87, 101, 0.1);
 		color: #ba5765;
 	}
-	.search-bar input {
-		width: 100%;
-		padding: 0.5rem;
-		border: 1px solid black;
-		border-radius: 4px;
+	.tag-suggestions {
+		border-top: 1px solid rgba(186, 87, 101, 0.1);
+		padding: 1rem;
+		background: rgba(255, 255, 255, 0.9);
+	}
+
+	.suggestions-title {
+		font-size: 0.875rem;
+		color: #999;
+		margin-bottom: 0.75rem;
+	}
+
+	.suggestions-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.suggestion-tag {
+		padding: 0.5rem 1rem;
+		background: linear-gradient(
+			135deg,
+			rgba(186, 87, 101, 0.1),
+			rgba(186, 87, 101, 0.2)
+		);
+		border-radius: 8px;
 		color: #ba5765;
+		font-size: 0.875rem;
+		transition: all 0.2s ease;
+	}
+
+	.suggestion-tag:hover {
+		transform: scale(1.05);
+		background: linear-gradient(
+			135deg,
+			rgba(186, 87, 101, 0.2),
+			rgba(186, 87, 101, 0.3)
+		);
+	}
+
+	.hidden {
+		display: none;
 	}
 	.tags {
 		margin: 0.5rem 0;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
-		color: #ba5765;
 	}
 	.tag {
-		background: rgb(var(--accent));
+		background: linear-gradient(
+			135deg,
+			rgba(186, 87, 101, 0.1),
+			rgba(186, 87, 101, 0.2)
+		);
 		padding: 0.25rem 0.5rem;
 		border-radius: 4px;
 		font-size: 0.875rem;
@@ -208,8 +423,39 @@ const posts = (await fetchBlogPosts())
 		color: rgb(var(--accent));
 	}
 	ul a:hover img {
-		box-shadow: var(--box-shadow);
+		background: linear-gradient(
+			135deg,
+			rgba(186, 87, 101, 0.1),
+			rgba(186, 87, 101, 0.2)
+		);
 	}
+	.blog-item {
+		transition: all 0.3s ease-in-out;
+		border-radius: 12px;
+		overflow: hidden;
+	}
+
+	.blog-item:hover {
+		transform: translateY(-5px) scale(1.02); /* slightly lift the card */
+		box-shadow:
+			0 10px 20px rgba(0, 0, 0, 0.15),
+			0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.blog-item:hover .title {
+		color: #d47281;
+		text-decoration: underline;
+	}
+
+	.blog-item img {
+		transition: transform 0.3s ease-in-out;
+		border-radius: 12px;
+	}
+
+	.blog-item:hover img {
+		transform: scale(1.05); /* slight zoom effect on image */
+	}
+
 	@media (max-width: 720px) {
 		ul {
 			gap: 0.5em;
@@ -223,6 +469,18 @@ const posts = (await fetchBlogPosts())
 		}
 		ul li:first-child .title {
 			font-size: 1.563em;
+		}
+		.search-container {
+			margin: 1rem auto;
+		}
+
+		.search-input-container {
+			padding: 0.5rem;
+		}
+
+		.search-icon-wrapper {
+			width: 40px;
+			height: 40px;
 		}
 	}
 </style>

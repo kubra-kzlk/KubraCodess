@@ -56,26 +56,16 @@ const { title = "KubraCodes" } = Astro.props;
 
 		<!-- Desktop Menu -->
 		<div class="desktop-menu">
-			<HeaderLink href="/" tooltip="Home page"
-				><Home size="16" />Home
-			</HeaderLink>
-			<HeaderLink href="/blog" tooltip="Read all my blogposts"
-				>Blog</HeaderLink
-			>
-			<HeaderLink href="/project" tooltip="Explore my projects"
-				>Projects</HeaderLink
-			>
+			<HeaderLink href="/">HOME </HeaderLink>
 			<HeaderLink
-				href="/about"
-				tooltip="Learn more about me"
 				dropdown={[
 					{ label: "Web Dev", href: "/services/web" },
 					{ label: "SEO", href: "/services/seo" },
 				]}
+				href="/blog">BLOG</HeaderLink
 			>
-				<User />
-				About
-			</HeaderLink>
+			<HeaderLink href="/project">PROJECTS</HeaderLink>
+			<HeaderLink href="/about"> ABOUT</HeaderLink>
 		</div>
 
 		<!-- Mobile Menu Button -->
