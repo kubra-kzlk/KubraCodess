@@ -10,68 +10,123 @@ const subpath = pathname.match(/[^\/]+/g);
 const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
-	<slot />
-	{dropdown && <span class="arrow">&#9660;</span>}
-</a>
-{
-	dropdown && (
-		<ul class="dropdown">
-			{dropdown.map((item) => (
-				<li>
-					<a href={item.href}>{item.label}</a>
-				</li>
-			))}
-		</ul>
-	)
-}
+<div class="nav-item-container">
+	<a href={href} class:list={[className, { active: isActive }]} {...props}>
+		<slot />
+		{dropdown && <span class="arrow">&#9660;</span>}
+	</a>
+	{
+		dropdown && (
+			<ul class="dropdown">
+				{dropdown.map((item) => (
+					<li>
+						<a href={item.href} class="dropdown-link">
+							{item.label}
+						</a>
+					</li>
+				))}
+			</ul>
+		)
+	}
+</div>
 
 <style>
+	.nav-item-container {
+		position: relative;
+		display: inline-block;
+	}
+
 	.dropdown {
 		display: none;
 		position: absolute;
 		background: white;
-		border: 1px solid #ccc;
-		border-radius: 4px;
-		padding: 5px;
+		border: 1px solid rgba(186, 87, 101, 0.1);
+		border-radius: 8px;
+		padding: 0.5rem 0;
 		list-style: none;
-		min-width: 150px;
-		box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+		min-width: 180px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 		top: 100%;
-		left: 0;
-		z-index: 10;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 100;
+		margin-top: 0.5rem;
 	}
-	.dropdown li {
-		padding: 5px;
+
+	.dropdown::before {
+		content: "";
+		position: absolute;
+		top: -6px;
+		left: 50%;
+		transform: translateX(-50%) rotate(45deg);
+		width: 12px;
+		height: 12px;
+		background: white;
+		border-left: 1px solid rgba(186, 87, 101, 0.1);
+		border-top: 1px solid rgba(186, 87, 101, 0.1);
 	}
-	a:hover + .dropdown,
-	.dropdown:hover {
+
+	.nav-item-container:hover .dropdown {
 		display: block;
+		animation: fadeIn 0.2s ease;
 	}
 
-	.dropdown li a {
-		display: flex;
-		align-items: center;
-		padding: 8px;
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			transform: translateX(-50%) translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(-50%) translateY(0);
+		}
+	}
+
+	.dropdown li {
+		margin: 0;
+		padding: 0;
+	}
+
+	.dropdown-link {
+		display: block;
+		padding: 0.5rem 1rem;
+		color: #ba5765;
 		text-decoration: none;
-		color: white;
+		transition: all 0.2s ease;
+		white-space: nowrap;
 	}
 
-	.dropdown li a:hover {
-		background: lightgray;
+	.dropdown-link:hover {
+		background: rgba(186, 87, 101, 0.1);
+		color: #d4717f;
 	}
 
 	.arrow {
-		margin-left: 5px;
-		font-size: 12px;
+		display: inline-block;
+		margin-left: 4px;
+		font-size: 10px;
+		transition: transform 0.2s ease;
 	}
 
-	a {
-		display: inline-block;
-		text-decoration: none;
+	.nav-item-container:hover .arrow {
+		transform: rotate(180deg);
 	}
-	a.active {
-		font-weight: bolder;
-		text-decoration: underline;
+
+	:global(.dark) .dropdown {
+		background: #1a1a1a;
+		border-color: #333;
+	}
+
+	:global(.dark) .dropdown::before {
+		background: #1a1a1a;
+		border-color: #333;
+	}
+
+	:global(.dark) .dropdown-link {
+		color: #d4717f;
+	}
+
+	:global(.dark) .dropdown-link:hover {
+		background: rgba(186, 87, 101, 0.2);
 	}
 </style>

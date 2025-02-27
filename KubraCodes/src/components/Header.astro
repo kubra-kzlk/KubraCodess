@@ -6,11 +6,38 @@ import ThemeToggle from "./ThemeToggle.astro";
 import "../styles/global.css";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { Home, Search, User } from "lucide-astro";
+import { fetchBlogPosts } from "../lib/contentful";
 
 // Define the canonical URL for the current page
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title = "KubraCodes" } = Astro.props;
+
+// Fetch blog posts to extract week tags
+const posts = await fetchBlogPosts();
+
+// Extract week tags + sort them
+const weekTags = posts
+  .flatMap((post) => post.tags || [])
+  .filter((tag) => tag && tag.toLowerCase().startsWith("week"))
+  .filter((tag, index, self) => self.indexOf(tag) === index)
+  .sort((a, b) => {
+    // Sort by week number
+    const weekNumA = parseInt(a.replace(/\D/g, "")) || 0;
+    const weekNumB = parseInt(b.replace(/\D/g, "")) || 0;
+    return weekNumA - weekNumB;
+  });
+
+const weekDropdownItems = weekTags.map((tag) => ({
+  label: `${tag.charAt(0).toUpperCase() + tag.slice(1)}`,
+  href: `/blog?tag=${tag}`,
+}));
+
+// Add "All Posts" as the first item
+weekDropdownItems.unshift({
+  label: "All Posts",
+  href: "/blog",
+});
 ---
 
 <!-- Global Metadata -->
@@ -57,13 +84,7 @@ const { title = "KubraCodes" } = Astro.props;
     <!-- Desktop Menu -->
     <div class="desktop-menu">
       <HeaderLink href="/">HOME </HeaderLink>
-      <HeaderLink
-        dropdown={[
-          { label: "Web Dev", href: "/services/web" },
-          { label: "SEO", href: "/services/seo" },
-        ]}
-        href="/blog">BLOG</HeaderLink
-      >
+      <HeaderLink dropdown={weekDropdownItems} href="/blog">BLOG</HeaderLink>
       <HeaderLink href="/project">PROJECTS</HeaderLink>
       <HeaderLink href="/about"> ABOUT</HeaderLink>
     </div>
@@ -99,7 +120,34 @@ const { title = "KubraCodes" } = Astro.props;
   <!-- Mobile Menu Items -->
   <div id="mobile-menu" class="mobile-menu">
     <HeaderLink href="/">Home</HeaderLink>
-    <HeaderLink href="/blog">Blog</HeaderLink>
+    <div class="mobile-dropdown">
+      <button class="mobile-dropdown-toggle">
+        Blog
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="dropdown-arrow"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+      <div class="mobile-dropdown-menu">
+        {
+          weekDropdownItems.map((item) => (
+            <a href={item.href} class="mobile-dropdown-item">
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
     <HeaderLink href="/project">Projects</HeaderLink>
     <HeaderLink href="/about">About</HeaderLink>
   </div>
@@ -136,7 +184,6 @@ const { title = "KubraCodes" } = Astro.props;
     text-decoration: none;
   }
 
-  /* Desktop hover effect */
   nav a:before {
     content: "";
     position: absolute;
@@ -158,14 +205,8 @@ const { title = "KubraCodes" } = Astro.props;
   }
 
   nav a.active:before {
-    width: 100%; /* This replaces the border-bottom on active links */
+    width: 100%;
   }
-
-  /* Remove the following style if it exists */
-  /* nav a.active {
-    text-decoration: none;
-    border-bottom-color: #ba5765;
-} */
 
   .mobile-menu-btn {
     display: none;
@@ -183,6 +224,59 @@ const { title = "KubraCodes" } = Astro.props;
 
   .mobile-menu {
     display: none;
+  }
+
+  .mobile-dropdown {
+    width: 100%;
+    position: relative;
+  }
+
+  .mobile-dropdown-toggle {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ba5765;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-dropdown-toggle .dropdown-arrow {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-dropdown-toggle.active .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .mobile-dropdown-menu {
+    display: none;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 0.5rem 0;
+  }
+
+  .mobile-dropdown-menu.show {
+    display: block;
+  }
+
+  .mobile-dropdown-item {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #ba5765;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-dropdown-item:hover {
+    background-color: rgba(186, 87, 101, 0.1);
+    transform: translateX(5px);
   }
 
   @media (max-width: 720px) {
@@ -254,6 +348,10 @@ const { title = "KubraCodes" } = Astro.props;
     .dark .mobile-menu-btn {
       color: white;
     }
+
+    .dark .mobile-dropdown-menu {
+      background-color: rgba(26, 26, 26, 0.95);
+    }
   }
 </style>
 
@@ -261,6 +359,8 @@ const { title = "KubraCodes" } = Astro.props;
   function setupMobileMenu() {
     const menuBtn = document.getElementById("menu-btn");
     const mobileMenu = document.getElementById("mobile-menu");
+    const dropdownToggle = document.querySelector(".mobile-dropdown-toggle");
+    const dropdownMenu = document.querySelector(".mobile-dropdown-menu");
 
     if (menuBtn && mobileMenu) {
       menuBtn.addEventListener("click", () => {
@@ -287,6 +387,26 @@ const { title = "KubraCodes" } = Astro.props;
           if (svg) {
             svg.style.transform = "rotate(0deg)";
           }
+        }
+      });
+    }
+
+    // Mobile dropdown toggle
+    if (dropdownToggle && dropdownMenu) {
+      dropdownToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdownToggle.classList.toggle("active");
+        dropdownMenu.classList.toggle("show");
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !dropdownToggle.contains(e.target as Node) &&
+          !dropdownMenu.contains(e.target as Node)
+        ) {
+          dropdownToggle.classList.remove("active");
+          dropdownMenu.classList.remove("show");
         }
       });
     }
