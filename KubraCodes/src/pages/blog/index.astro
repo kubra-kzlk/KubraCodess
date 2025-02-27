@@ -7,7 +7,7 @@ import { fetchBlogPosts } from "../../lib/contentful";
 import { Home, Search, User, X } from "lucide-astro";
 
 // Get the tag from URL query parameter
-const { tag } = Astro.url.searchParams;
+const tag = Astro.url.searchParams.get("tag")?.toLowerCase();
 
 const posts = (await fetchBlogPosts())
 	.filter(
