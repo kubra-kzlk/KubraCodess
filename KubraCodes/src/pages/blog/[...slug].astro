@@ -30,7 +30,6 @@ const {
 } = post;
 console.log("🚀 Rendered Blog Post:", post);
 console.log("🖼 Rendered Gallery Images:", galleryImages);
-
 ---
 
 <Layout
@@ -76,17 +75,24 @@ console.log("🖼 Rendered Gallery Images:", galleryImages);
             </div>
           )
         }
-        {galleryImages.length > 0 ? (
-          <div class="gallery">
-            <h3>Image Gallery</h3>
-            <div class="gallery-grid">
-              {galleryImages.map((image: { url: string | null | undefined; title: any; }) => (
-                <img src={image.url} alt={image.title || "Gallery Image"} />
-              ))}
+        {
+          galleryImages.length > 0 ? (
+            <div class="gallery">
+              <h3>Image Gallery</h3>
+              <div class="gallery-grid">
+                {galleryImages.map(
+                  (image: { url: string | null | undefined; title: any }) =>
+                    image?.url ? (
+                      <img
+                        src={image.url}
+                        alt={image.title || "Gallery Image"}
+                      />
+                    ) : null
+                )}
+              </div>
             </div>
-          </div>
-        ) : null}
-        
+          ) : null
+        }
       </article>
     </main>
   </body>
