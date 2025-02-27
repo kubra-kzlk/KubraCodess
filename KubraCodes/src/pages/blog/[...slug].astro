@@ -26,7 +26,11 @@ const {
   author,
   publishedDate,
   relatedBlogPosts,
+  galleryImages,
 } = post;
+console.log("🚀 Rendered Blog Post:", post);
+console.log("🖼 Rendered Gallery Images:", galleryImages);
+
 ---
 
 <Layout
@@ -66,107 +70,148 @@ const {
                       <h4>{related.title}</h4>
                       <a href={`/blog/${related.slug}`}>Read More</a>
                     </div>
-                  ),
+                  )
                 )}
               </div>
             </div>
           )
         }
+        {galleryImages.length > 0 ? (
+          <div class="gallery">
+            <h3>Image Gallery</h3>
+            <div class="gallery-grid">
+              {galleryImages.map((image: { url: string | null | undefined; title: any; }) => (
+                <img src={image.url} alt={image.title || "Gallery Image"} />
+              ))}
+            </div>
+          </div>
+        ) : null}
+        
       </article>
     </main>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        color: #ba5765;
-      }
-      main {
-        width: 80%;
-        max-width: 960px;
-        margin: 40px auto;
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        font-size: 2.5rem;
-        text-align: center;
-        margin-bottom: 0.5rem;
-        color: #ba5765;
-      }
-      h2 {
-        text-align: center;
-        color: #ba5765;
-        margin-bottom: 10px;
-      }
-      .meta {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        font-size: 0.9rem;
-        color: #ba5765;
-      }
-      .meta img {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-      }
-      .featured-image {
-        width: 100%;
-        border-radius: 12px;
-        margin: 20px 0;
-      }
-      .content {
-        margin-top: 1.5rem;
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #ba5765;
-      }
-      .related-articles {
-        margin-top: 40px;
-      }
-      .related-articles h3 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #ba5765;
-      }
-      .related-list {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-      }
-      .related-post {
-        width: 300px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        text-align: center;
-      }
-      .related-post img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-      }
-      .related-post h4 {
-        padding: 10px;
-        font-size: 1rem;
-        color: #ba5765;
-      }
-      .related-post a {
-        display: block;
-        padding: 10px;
-        color: #ba5765;
-        color: #ba5765;
-        text-decoration: none;
-        border-radius: 0 0 12px 12px;
-      }
-      .related-post a:hover {
-        color: #ba5765;
-      }
-    </style>
-  </body></Layout
->
+  </body>
+</Layout>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #ba5765;
+  }
+  main {
+    width: 80%;
+    max-width: 960px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: #ba5765;
+  }
+  h2 {
+    text-align: center;
+    color: #ba5765;
+    margin-bottom: 10px;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #ba5765;
+  }
+  .meta img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  .featured-image {
+    width: 100%;
+    border-radius: 12px;
+    margin: 20px 0;
+  }
+  .content {
+    margin-top: 1.5rem;
+    line-height: 1.8;
+    font-size: 1rem;
+    color: #ba5765;
+  }
+  .related-articles {
+    margin-top: 40px;
+  }
+  .related-articles h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ba5765;
+  }
+  .related-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .related-post {
+    width: 300px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+  }
+  .related-post img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .related-post h4 {
+    padding: 10px;
+    font-size: 1rem;
+    color: #ba5765;
+  }
+  .related-post a {
+    display: block;
+    padding: 10px;
+    color: #ba5765;
+    color: #ba5765;
+    text-decoration: none;
+    border-radius: 0 0 12px 12px;
+  }
+  .related-post a:hover {
+    color: #ba5765;
+  }
+  .gallery {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .gallery h3 {
+    font-size: 1.5rem;
+    color: #ba5765;
+    margin-bottom: 20px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .gallery-grid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+
+  .gallery-grid img:hover {
+    transform: scale(1.05);
+  }
+</style>

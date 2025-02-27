@@ -16,8 +16,8 @@ const { title = "KubraCodes" } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta
-	name="viewport"
-	content="width=device-width,initial-scale=1"
+  name="viewport"
+  content="width=device-width,initial-scale=1"
 /><!-- Makes the site mobile-responsive by setting the viewport width to the device width.-->
 <link rel="sitemap" href="/sitemap-index.xml" />
 <!-- Sitemap URL: Links to the sitemap, helping search engines index your website -->
@@ -34,270 +34,267 @@ const { title = "KubraCodes" } = Astro.props;
 
 <!-- Font preloads -->
 <link
-	rel="preload"
-	href="/fonts/atkinson-regular.woff"
-	as="font"
-	type="font/woff"
-	crossorigin
+  rel="preload"
+  href="/fonts/atkinson-regular.woff"
+  as="font"
+  type="font/woff"
+  crossorigin
 />
 <link
-	rel="preload"
-	href="/fonts/atkinson-bold.woff"
-	as="font"
-	type="font/woff"
-	crossorigin
+  rel="preload"
+  href="/fonts/atkinson-bold.woff"
+  as="font"
+  type="font/woff"
+  crossorigin
 />
 
 <header class="p-4 bg-white dark:bg-gray-900">
-	<nav class="flex justify-between items-center relative">
-		<h2>
-			<a href="/"><img src="/logoNameBg.png" alt={SITE_TITLE} /></a>
-		</h2>
+  <nav class="flex justify-between items-center relative">
+    <h2>
+      <a href="/"><img src="/logoName.svg" alt={SITE_TITLE} /></a>
+    </h2>
 
-		<!-- Desktop Menu -->
-		<div class="desktop-menu">
-			<HeaderLink href="/">HOME </HeaderLink>
-			<HeaderLink
-				dropdown={[
-					{ label: "Web Dev", href: "/services/web" },
-					{ label: "SEO", href: "/services/seo" },
-				]}
-				href="/blog">BLOG</HeaderLink
-			>
-			<HeaderLink href="/project">PROJECTS</HeaderLink>
-			<HeaderLink href="/about"> ABOUT</HeaderLink>
-		</div>
+    <!-- Desktop Menu -->
+    <div class="desktop-menu">
+      <HeaderLink href="/">HOME </HeaderLink>
+      <HeaderLink
+        dropdown={[
+          { label: "Web Dev", href: "/services/web" },
+          { label: "SEO", href: "/services/seo" },
+        ]}
+        href="/blog">BLOG</HeaderLink
+      >
+      <HeaderLink href="/project">PROJECTS</HeaderLink>
+      <HeaderLink href="/about"> ABOUT</HeaderLink>
+    </div>
 
-		<!-- Mobile Menu Button -->
-		<button
-			id="menu-btn"
-			class="mobile-menu-btn"
-			aria-label="Toggle menu"
-			aria-expanded="false"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				class="transform transition-transform duration-200"
-			>
-				<line x1="3" y1="12" x2="21" y2="12"></line>
-				<line x1="3" y1="6" x2="21" y2="6"></line>
-				<line x1="3" y1="18" x2="21" y2="18"></line>
-			</svg>
-		</button>
+    <!-- Mobile Menu Button -->
+    <button
+      id="menu-btn"
+      class="mobile-menu-btn"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="transform transition-transform duration-200"
+      >
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
 
-		<ThemeToggle />
-	</nav>
+    <ThemeToggle />
+  </nav>
 
-	<!-- Mobile Menu Items -->
-	<div id="mobile-menu" class="mobile-menu">
-		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/blog">Blog</HeaderLink>
-		<HeaderLink href="/project">Projects</HeaderLink>
-		<HeaderLink href="/about">About</HeaderLink>
-	</div>
+  <!-- Mobile Menu Items -->
+  <div id="mobile-menu" class="mobile-menu">
+    <HeaderLink href="/">Home</HeaderLink>
+    <HeaderLink href="/blog">Blog</HeaderLink>
+    <HeaderLink href="/project">Projects</HeaderLink>
+    <HeaderLink href="/about">About</HeaderLink>
+  </div>
 </header>
 
 <style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-		position: relative;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-		width: 150px;
-	}
+  header {
+    margin: 0;
+    padding: 0 1em;
+    background: white;
+    box-shadow: 0 2px 8px rgba(var(--black), 5%);
+    position: relative;
+  }
+  h2 {
+    margin: 0;
+    font-size: 1em;
+    width: 150px;
+  }
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: #ba5765;
-		position: relative;
-		transition: all 0.3s ease;
-		text-decoration: none;
-	}
+  h2 a,
+  h2 a.active {
+    text-decoration: none;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  nav a {
+    padding: 1em 0.5em;
+    color: #ba5765;
+    position: relative;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
 
-	/* Desktop hover effect */
-	nav a:before {
-		content: "";
-		position: absolute;
-		width: 0;
-		height: 4px;
-		bottom: 0;
-		left: 50%;
-		background-color: #ba5765;
-		transition: all 0.3s ease;
-		transform: translateX(-50%);
-	}
+  /* Desktop hover effect */
+  nav a:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 4px;
+    bottom: 0;
+    left: 50%;
+    background-color: #ba5765;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
 
-	nav a:hover {
-		color: #d4717f;
-	}
+  nav a:hover {
+    color: #d4717f;
+  }
 
-	nav a:hover:before {
-		width: 100%;
-	}
+  nav a:hover:before {
+    width: 100%;
+  }
 
-	nav a.active:before {
-		width: 100%; /* This replaces the border-bottom on active links */
-	}
+  nav a.active:before {
+    width: 100%; /* This replaces the border-bottom on active links */
+  }
 
-	/* Remove the following style if it exists */
-	/* nav a.active {
+  /* Remove the following style if it exists */
+  /* nav a.active {
     text-decoration: none;
     border-bottom-color: #ba5765;
 } */
 
-	.mobile-menu-btn {
-		display: none;
-		background: none;
-		border: none;
-		cursor: pointer;
-		color: #ba5765;
-		padding: 0.5em;
-		transition: transform 0.3s ease;
-	}
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ba5765;
+    padding: 0.5em;
+    transition: transform 0.3s ease;
+  }
 
-	.mobile-menu-btn:hover {
-		transform: scale(1.1);
-	}
+  .mobile-menu-btn:hover {
+    transform: scale(1.1);
+  }
 
-	.mobile-menu {
-		display: none;
-	}
+  .mobile-menu {
+    display: none;
+  }
 
-	@media (max-width: 720px) {
-		.desktop-menu {
-			display: none;
-		}
+  @media (max-width: 720px) {
+    .desktop-menu {
+      display: none;
+    }
 
-		.mobile-menu-btn {
-			display: block;
-		}
+    .mobile-menu-btn {
+      display: block;
+    }
 
-		.mobile-menu {
-			display: none;
-			position: absolute;
-			top: 100%;
-			left: 0;
-			width: 100%;
-			background: white;
-			flex-direction: column;
-			z-index: 50;
-			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-			transform: translateY(-10px);
-			opacity: 0;
-			transition: all 0.3s ease;
-		}
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: white;
+      flex-direction: column;
+      z-index: 50;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
 
-		.mobile-menu.show {
-			display: flex;
-			transform: translateY(0);
-			opacity: 1;
-		}
+    .mobile-menu.show {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
 
-		.mobile-menu a {
-			width: 100%;
-			text-align: center;
-			padding: 0.75rem;
-			background: none;
-			border: none;
-			cursor: pointer;
-			color: #ba5765;
-			transition: all 0.3s ease;
-			position: relative;
-			overflow: hidden;
-		}
+    .mobile-menu a {
+      width: 100%;
+      text-align: center;
+      padding: 0.75rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #ba5765;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
 
-		.mobile-menu a:hover {
-			background-color: rgba(186, 87, 101, 0.1);
-			transform: translateX(5px);
-		}
+    .mobile-menu a:hover {
+      background-color: rgba(186, 87, 101, 0.1);
+      transform: translateX(5px);
+    }
 
-		.mobile-menu a.active {
-			background: #ba5765;
-			color: white;
-		}
+    .mobile-menu a.active {
+      background: #ba5765;
+      color: white;
+    }
 
-		.mobile-menu a.active:hover {
-			background: #d4717f;
-			transform: translateX(5px);
-		}
+    .mobile-menu a.active:hover {
+      background: #d4717f;
+      transform: translateX(5px);
+    }
 
-		.dark .mobile-menu {
-			background: #1a1a1a;
-		}
+    .dark .mobile-menu {
+      background: #1a1a1a;
+    }
 
-		.dark .mobile-menu a:hover {
-			background-color: rgba(186, 87, 101, 0.2);
-		}
+    .dark .mobile-menu a:hover {
+      background-color: rgba(186, 87, 101, 0.2);
+    }
 
-		.dark .mobile-menu-btn {
-			color: white;
-		}
-	}
+    .dark .mobile-menu-btn {
+      color: white;
+    }
+  }
 </style>
 
 <script>
-	function setupMobileMenu() {
-		const menuBtn = document.getElementById("menu-btn");
-		const mobileMenu = document.getElementById("mobile-menu");
+  function setupMobileMenu() {
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
 
-		if (menuBtn && mobileMenu) {
-			menuBtn.addEventListener("click", () => {
-				const isExpanded =
-					menuBtn.getAttribute("aria-expanded") === "true";
-				menuBtn.setAttribute("aria-expanded", (!isExpanded).toString());
-				mobileMenu.classList.toggle("show");
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener("click", () => {
+        const isExpanded = menuBtn.getAttribute("aria-expanded") === "true";
+        menuBtn.setAttribute("aria-expanded", (!isExpanded).toString());
+        mobileMenu.classList.toggle("show");
 
-				// Rotate hamburger icon
-				const svg = menuBtn.querySelector("svg");
-				if (svg) {
-					svg.style.transform = isExpanded
-						? "rotate(0deg)"
-						: "rotate(90deg)";
-				}
-			});
+        // Rotate hamburger icon
+        const svg = menuBtn.querySelector("svg");
+        if (svg) {
+          svg.style.transform = isExpanded ? "rotate(0deg)" : "rotate(90deg)";
+        }
+      });
 
-			// Close mobile menu when clicking outside
-			document.addEventListener("click", (e) => {
-				if (
-					!menuBtn.contains(e.target as Node) &&
-					!mobileMenu.contains(e.target as Node)
-				) {
-					mobileMenu.classList.remove("show");
-					menuBtn.setAttribute("aria-expanded", "false");
-					const svg = menuBtn.querySelector("svg");
-					if (svg) {
-						svg.style.transform = "rotate(0deg)";
-					}
-				}
-			});
-		}
-	}
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !menuBtn.contains(e.target as Node) &&
+          !mobileMenu.contains(e.target as Node)
+        ) {
+          mobileMenu.classList.remove("show");
+          menuBtn.setAttribute("aria-expanded", "false");
+          const svg = menuBtn.querySelector("svg");
+          if (svg) {
+            svg.style.transform = "rotate(0deg)";
+          }
+        }
+      });
+    }
+  }
 
-	// Run on initial load
-	setupMobileMenu();
+  // Run on initial load
+  setupMobileMenu();
 
-	// Run on view transitions
-	document.addEventListener("astro:page-load", setupMobileMenu);
+  // Run on view transitions
+  document.addEventListener("astro:page-load", setupMobileMenu);
 </script>

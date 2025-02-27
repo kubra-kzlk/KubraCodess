@@ -88,42 +88,70 @@ const options = {
 
 export async function fetchBlogPostBySlug(slug) {
   const entries = await client.getEntries({
-    content_type: 'pageBlogPost',
-    'fields.slug': slug,
-    include: 3, // Increase depth to ensure images are included
+    content_type: "pageBlogPost",
+    "fields.slug": slug,
+    include: 3, // Zorgt ervoor dat gerelateerde posts ook worden ingeladen
   });
 
   if (!entries.items.length) return null;
 
   const item = entries.items[0];
 
-  //console.log('🔍 Contentful Response:', JSON.stringify(item.fields.content, null, 2));
+  console.log("🔍 Full Blog Post Entry:", JSON.stringify(item, getCircularReplacer(), 2));
+  console.log("🖼 Gallery Images Data:", JSON.stringify(item.fields.galleryImages, null, 2));
 
-  let convertedContent = '';
+  function getCircularReplacer() {
+    const seen = new WeakSet();
+    return (key, value) => {
+      if (typeof value === "object" && value !== null) {
+        if (seen.has(value)) return "[Circular]";
+        seen.add(value);
+      }
+      return value;
+    };
+  }
+  
+  let convertedContent = "";
 
   try {
     convertedContent = documentToHtmlString(item.fields.content, options);
   } catch (error) {
-    console.error('Error converting Rich Text to HTML:', error);
+    console.error("Error converting Rich Text to HTML:", error);
+  }
+
+  // Gebruik een Set om dubbele of circulaire referenties te voorkomen
+  const seenSlugs = new Set();
+  const relatedPosts = [];
+
+  if (item.fields.relatedBlogPosts) {
+    item.fields.relatedBlogPosts.forEach((post) => {
+      if (post?.fields?.slug && !seenSlugs.has(post.fields.slug)) {
+        seenSlugs.add(post.fields.slug);
+        relatedPosts.push({
+          title: post.fields.title || "Untitled",
+          slug: post.fields.slug || "",
+        });
+      }
+    });
   }
 
   return {
-    internalName: item.fields.internalName || 'Untitled',
+    internalName: item.fields.internalName || "Untitled",
     slug: item.fields.slug,
     title: item.fields.title,
-    shortDescription: item.fields.shortDescription || '',
-    featuredImage: item.fields.featuredImage?.fields?.file?.url ? `https:${item.fields.featuredImage.fields.file.url}` : '',
+    shortDescription: item.fields.shortDescription || "",
+    featuredImage: item.fields.featuredImage?.fields?.file?.url
+      ? `https:${item.fields.featuredImage.fields.file.url}`
+      : "",
     publishedDate: item.fields.publishedDate || null,
-    author: item.fields.author?.fields?.name || 'Unknown',
+    author: item.fields.author?.fields?.name || "Unknown",
     seoFields: item.fields.seoFields || null,
     content: convertedContent,
-   relatedBlogPosts:
-  item.fields.relatedBlogPosts
-    ?.filter(post => post?.fields) // Ensure post exists and has fields
-    .map((post) => ({
-      title: post.fields.title || 'Untitled',
-      slug: post.fields.slug || '',
-    })) || [],
-
+    relatedBlogPosts: relatedPosts, // Nu zonder circulaire referenties
+    galleryImages:
+      item.fields.galleryImages?.map((image) => ({
+        url: `https:${image.fields.file.url}`,
+        title: image.fields.title || "Gallery Image",
+      })) || [],
   };
-} 
+}
