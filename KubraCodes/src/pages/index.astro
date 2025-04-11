@@ -19,25 +19,33 @@ const featuredPost = featuredBlogPost
 ---
 
 <Layout
-	title="Code. Create. Deploy. Kubra Kizilklic Full-Stack Developer"
+	title="Code. Create. Deploy. "
 	description={seoFields?.description || SITE_DESCRIPTION}
 	pubDate={new Date()}
 >
-	<h1>{internalName}</h1>
-	<div>
-		<img
-			src={landingpageImage}
-			alt="Kubra Kizikilic"
-			width="120"
-			height="60"
-			loading="lazy"
-		/>
-		<p>
-			I'm Kubra Kizikilic, full-stack developer based in Antwerp, Belgium.
-			I'm currently pursuing an Associate Degree in Programming at Artesis
-			Plantijn Hogeschool Antwerpen, where I'm enhancing my skills in web
-			development and software engineering.
-		</p>
+	<div class="intro-section">
+		<div class="intro-text">
+			<h1>{internalName}</h1>
+
+			<p>
+				junior full-stack developer based in Antwerp, Belgium, with a passion
+				for crafting elegant and user-friendly web applications.
+				Currently, I'm pursuing an Associate Degree in Programming at
+				Artesis Plantijn Hogeschool Antwerpen, where I'm enhancing my
+				skills in web development and software engineering. I'm actively
+				expanding my expertise in technologies such as React, C#,
+				TypeScript, Express, and Angular. You can explore my projects
+				and contributions on my GitHub profile.
+			</p>
+		</div>
+		<div class="intro-img">
+			<img
+				src={landingpageImage}
+				alt="Kubra Kizikilic"
+				width="200"
+				loading="lazy"
+			/>
+		</div>
 	</div>
 	<p></p>
 	<hr />
@@ -45,20 +53,21 @@ const featuredPost = featuredBlogPost
 	<br />
 	{
 		featuredPost && (
-			<section>
+			<section class="featured-section">
+				{" "}
 				<h2>Featured Blog Post</h2>
 				<article>
-					<h3>{featuredPost.title}</h3>
-					{featuredPost.featuredImage && (
-						<img
-							src={featuredPost.featuredImage}
-							width="1200"
-							height="600"
-							loading="lazy"
-						/>
-					)}
-					<p>{featuredPost.shortDescription}</p>
-					<a href={`/blog/${featuredPost.slug}/`}>Read More</a>
+					<a href={`/blog/${featuredPost.slug}/`} class="blog-link">
+						<h3>{featuredPost.title}</h3>
+						{featuredPost.featuredImage && (
+							<img
+								src={featuredPost.featuredImage}
+								width="1200"
+								height="600"
+								loading="lazy"
+							/>
+						)}
+					</a>
 				</article>
 			</section>
 		)
@@ -67,7 +76,7 @@ const featuredPost = featuredBlogPost
 
 <style>
 	h1 {
-		font-size: 2em;
+		font-size: 2.5em;
 		color: #ba5765;
 	}
 	h2 {
@@ -78,5 +87,46 @@ const featuredPost = featuredBlogPost
 	}
 	a {
 		color: #ba5765;
+	}
+	.intro-section {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		margin-top: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.intro-text {
+		flex: 1;
+	}
+
+	.intro-image img {
+		border-radius: 50%;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+	.blog-link {
+		text-decoration: none;
+		color: inherit;
+		display: inline-block;
+		transition: transform 0.2s ease;
+	}
+
+	.blog-link:hover {
+		transform: scale(1.02);
+	}
+
+	.blog-link img {
+		border-radius: 8px;
+		transition: transform 0.3s ease;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+	}
+
+	.blog-link:hover img {
+		transform: scale(1.02);
+	}
+
+	.featured-section {
+		margin-top: 4rem;
 	}
 </style>

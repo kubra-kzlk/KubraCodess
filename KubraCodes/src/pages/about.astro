@@ -4,41 +4,104 @@ import { fetchLandingPage } from "../lib/contentful";
 
 const landingPage = await fetchLandingPage();
 const { landingpageImage } = landingPage || {};
-	landingPage;
-	const technologies = [
-  { name: "HTML5", icon: "fab fa-html5" },
-  { name: "CSS", icon: "fab fa-css3" },
-  { name: "JavaScript", icon: "fab fa-js" },
-  { name: "MySQL", icon: "fas fa-database" },
-  { name: "C#", icon: "fab fa-cuttlefish" },
-  { name: ".NET Core", icon: "fab fa-microsoft" },
-  { name: "Node.js", icon: "fab fa-node" },
-  { name: "npm", icon: "fab fa-npm" },
-  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-  { name: "Express", icon: "fas fa-server" },
-  { name: "MongoDB", icon: "fas fa-database" },
-  { name: "Bootstrap", icon: "fab fa-bootstrap" },
-  { name: "React", icon: "fab fa-react" },
-  { name: "Git", icon: "fab fa-git" },
-  { name: "GitHub", icon: "fab fa-github" },
-  { name: "Docker", icon: "fab fa-docker" },
-  { name: "XML", icon: "fas fa-code" },
-  { name: "JSON", icon: "fas fa-code" },
-  { name: "Jira", icon: "fab fa-jira" },
-  { name: "Microsoft Azure", icon: "fab fa-microsoft" },
-  { name: "Bicep", icon: "fas fa-code" },
-  { name: "Contentful", icon: "fas fa-cogs" },
-  { name: "Python", icon: "fab fa-python" },
-  { name: "Angular", icon: "fab fa-angular" },
-  { name: "Visual Studio", icon: "fas fa-laptop-code" },
-  { name: "Visual Studio Code", icon: "fab fa-vscode" },
-  { name: "R", icon: "fas fa-chart-line" },
-  { name: "Trello", icon: "fab fa-trello" },
-  { name: "Figma", icon: "fab fa-figma" },
-  { name: "Wireshark", icon: "https://www.vectorlogo.zone/logos/wireshark/wireshark-icon.svg" },
-  ];
-
-
+landingPage;
+/*const technologies = [
+	{ name: "HTML5", icon: "fab fa-html5" },
+	{ name: "CSS", icon: "fab fa-css3" },
+	{ name: "JavaScript", icon: "fab fa-js" },
+	{ name: "MySQL", icon: "fas fa-database" },
+	{ name: "C#", icon: "fab fa-cuttlefish" },
+	{ name: ".NET Core", icon: "fab fa-microsoft" },
+	{ name: "Node.js", icon: "fab fa-node" },
+	{ name: "npm", icon: "fab fa-npm" },
+	{
+		name: "TypeScript",
+		icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+	},
+	{ name: "Express", icon: "fas fa-server" },
+	{ name: "MongoDB", icon: "fas fa-database" },
+	{ name: "Bootstrap", icon: "fab fa-bootstrap" },
+	{ name: "React", icon: "fab fa-react" },
+	{ name: "Git", icon: "fab fa-git" },
+	{ name: "GitHub", icon: "fab fa-github" },
+	{ name: "Docker", icon: "fab fa-docker" },
+	{ name: "XML", icon: "fas fa-code" },
+	{ name: "JSON", icon: "fas fa-code" },
+	{ name: "Jira", icon: "fab fa-jira" },
+	{ name: "Microsoft Azure", icon: "fab fa-microsoft" },
+	{ name: "Bicep", icon: "fas fa-code" },
+	{ name: "Contentful", icon: "fas fa-cogs" },
+	{ name: "Python", icon: "fab fa-python" },
+	{ name: "Angular", icon: "fab fa-angular" },
+	{ name: "Visual Studio", icon: "fas fa-laptop-code" },
+	{ name: "Visual Studio Code", icon: "fab fa-vscode" },
+	{ name: "R", icon: "fas fa-chart-line" },
+	{ name: "Trello", icon: "fab fa-trello" },
+	{ name: "Figma", icon: "fab fa-figma" },
+	{
+		name: "Wireshark",
+		icon: "https://www.vectorlogo.zone/logos/wireshark/wireshark-icon.svg",
+	},
+	{
+		name: "Azure DevOps",
+		icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuredevops/azuredevops-original.svg",
+	},
+	{
+		name: "YAML",
+		icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yaml/yaml-original.svg",
+	},
+	{
+		name: "Pandas",
+		icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+	},
+];
+*/
+//nieuwe methode
+const skills = [
+	{
+		category: "Frontend Development",
+		technologies: [
+			{ name: "React", icon: "fab fa-react" },
+			{ name: "JavaScript", icon: "fab fa-js" },
+			{
+				name: "TypeScript",
+				icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+			},
+			{ name: "Bootstrap", icon: "fab fa-bootstrap" },
+		],
+	},
+	{
+		category: "Backend Development",
+		technologies: [
+			{ name: "C#", icon: "fab fa-cuttlefish" },
+			{ name: ".NET Core", icon: "fab fa-microsoft" },
+			{ name: "Node.js", icon: "fab fa-node" },
+			{ name: "Express", icon: "fas fa-server" },
+			{ name: "MySQL", icon: "fas fa-database" },
+			{ name: "MongoDB", icon: "fas fa-database" },
+		],
+	},
+	{
+		category: "DevOps & Cloud",
+		technologies: [
+			{ name: "Microsoft Azure", icon: "fab fa-microsoft" },
+			{ name: "Bicep", icon: "fas fa-code" },
+			{ name: "Azure DevOps", icon: "fab fa-microsoft" },
+			{ name: "YAML", icon: "fas fa-code" },
+		],
+	},
+	{
+		category: "Tools & Others",
+		technologies: [
+			{ name: "Python", icon: "fab fa-python" },
+			{ name: "Jira", icon: "fab fa-jira" },
+			{ name: "Pandas", icon: "fas fa-database" },
+			{ name: "Git", icon: "fab fa-git" },
+			{ name: "GitHub", icon: "fab fa-github" },
+			{ name: "Figma", icon: "fab fa-figma" },
+		],
+	},
+];
 ---
 
 <Layout
@@ -48,11 +111,7 @@ const { landingpageImage } = landingPage || {};
 >
 	<div class="hello-section">
 		<div class="profile-container">
-			<img
-				src={landingpageImage}
-				alt="Profile"
-				class="profile-image"
-			/>
+			<img src={landingpageImage} alt="Profile" class="profile-image" />
 			<div class="profile-content">
 				<h1>My Story</h1>
 				<p>
@@ -110,6 +169,22 @@ const { landingpageImage } = landingPage || {};
 		</div>
 	</div>
 
+	<section class="certifications">
+		<h2>Certifications</h2>
+		<div class="cert-card">
+			<img
+				src="/public/certificate.png"
+				alt="Microsoft AZ-900 Azure Fundamentals Certificate"
+				loading="lazy"
+			/>
+			<p>
+				<b>Microsoft Certified:</b> Azure Fundamentals (AZ-900)
+				<br />
+				Earned April 2025
+			</p>
+		</div>
+	</section>
+
 	<!-- map iframe -->
 	<!-- <div class="map-container">
 		<iframe
@@ -123,21 +198,54 @@ const { landingpageImage } = landingPage || {};
 		>
 		</iframe>
 	</div>-->
-
+	/*
 	<div class="skills-section">
-		<h2  id="experienceText">
+		<h2 id="experienceText">
 			Hover over a technology to see my experience
 		</h2>
 		<div class="skills-grid">
 			{
 				technologies.map((tech) => (
 					<div class="skill-item" data-technology={tech.name}>
-						  <i class={`tech-icon ${tech.icon}`} />				
-				</div>
+						<i class={`tech-icon ${tech.icon}`} />
+					</div>
 				))
 			}
 		</div>
 	</div>
+	*/
+	<section class="skills-section">
+		<h2 id="experienceText">
+			Hover over a technology to see my experience
+		</h2>
+
+		{
+			skills.map((category) => (
+				<div class="skills-category" key={category.category}>
+					<h3>{category.category}</h3>
+					<div class="skills-grid">
+						{category.technologies.map((tech) => (
+							<div
+								class="skill-item"
+								key={tech.name}
+								data-technology={tech.name}
+							>
+								{tech.icon.startsWith("http") ? (
+									<img
+										src={tech.icon}
+										alt={tech.name}
+										class="tech-icon"
+									/>
+								) : (
+									<i className={`tech-icon ${tech.icon}`} />
+								)}
+							</div>
+						))}
+					</div>
+				</div>
+			))
+		}
+	</section>
 </Layout>
 
 <style>
@@ -181,11 +289,11 @@ const { landingpageImage } = landingPage || {};
 
 	.skill-item:hover {
 		transform: scale(1.1);
-		background-color: #ba5765; 
+		background-color: #ba5765;
 	}
 
 	.skill-item:hover .tech-icon {
-		stroke: #ba5765
+		stroke: #ba5765;
 	}
 	.hello-section {
 		padding: 4rem 2rem;
@@ -246,7 +354,7 @@ const { landingpageImage } = landingPage || {};
 	.tie-up-section h2 {
 		font-size: 3rem;
 		margin-bottom: 2rem;
-		color:#ba5765 ;
+		color: #ba5765;
 		max-width: 1200px;
 		margin-left: auto;
 		margin-right: auto;
@@ -269,11 +377,11 @@ const { landingpageImage } = landingPage || {};
 	.detail-icon {
 		width: 24px;
 		height: 24px;
-		color:#ba5765 ;
+		color: #ba5765;
 	}
 
 	.detail-item a {
-		color:#ba5765 ;
+		color: #ba5765;
 		text-decoration: none;
 		transition: opacity 0.3s ease;
 	}
@@ -302,6 +410,25 @@ const { landingpageImage } = landingPage || {};
 		.social-links {
 			justify-content: center;
 		}
+	}
+	.certifications {
+		margin-top: 4rem;
+		text-align: center;
+	}
+
+	.cert-card img {
+		max-width: 500px;
+		width: 100%;
+		height: auto;
+		border-radius: 8px;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		margin-top: 1rem;
+	}
+
+	.cert-card p {
+		color: #ba5765;
+		margin-top: 1rem;
+		font-weight: 500;
 	}
 </style>
 
