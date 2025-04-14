@@ -5,184 +5,161 @@ import { fetchLandingPage } from "../lib/contentful";
 const landingPage = await fetchLandingPage();
 const { landingpageImage } = landingPage || {};
 landingPage;
-/*const technologies = [
-	{ name: "HTML5", icon: "fab fa-html5" },
-	{ name: "CSS", icon: "fab fa-css3" },
-	{ name: "JavaScript", icon: "fab fa-js" },
-	{ name: "MySQL", icon: "fas fa-database" },
-	{ name: "C#", icon: "fab fa-cuttlefish" },
-	{ name: ".NET Core", icon: "fab fa-microsoft" },
-	{ name: "Node.js", icon: "fab fa-node" },
-	{ name: "npm", icon: "fab fa-npm" },
-	{
-		name: "TypeScript",
-		icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-	},
-	{ name: "Express", icon: "fas fa-server" },
-	{ name: "MongoDB", icon: "fas fa-database" },
-	{ name: "Bootstrap", icon: "fab fa-bootstrap" },
-	{ name: "React", icon: "fab fa-react" },
-	{ name: "Git", icon: "fab fa-git" },
-	{ name: "GitHub", icon: "fab fa-github" },
-	{ name: "Docker", icon: "fab fa-docker" },
-	{ name: "XML", icon: "fas fa-code" },
-	{ name: "JSON", icon: "fas fa-code" },
-	{ name: "Jira", icon: "fab fa-jira" },
-	{ name: "Microsoft Azure", icon: "fab fa-microsoft" },
-	{ name: "Bicep", icon: "fas fa-code" },
-	{ name: "Contentful", icon: "fas fa-cogs" },
-	{ name: "Python", icon: "fab fa-python" },
-	{ name: "Angular", icon: "fab fa-angular" },
-	{ name: "Visual Studio", icon: "fas fa-laptop-code" },
-	{ name: "Visual Studio Code", icon: "fab fa-vscode" },
-	{ name: "R", icon: "fas fa-chart-line" },
-	{ name: "Trello", icon: "fab fa-trello" },
-	{ name: "Figma", icon: "fab fa-figma" },
-	{
-		name: "Wireshark",
-		icon: "https://www.vectorlogo.zone/logos/wireshark/wireshark-icon.svg",
-	},
-	{
-		name: "Azure DevOps",
-		icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuredevops/azuredevops-original.svg",
-	},
-	{
-		name: "YAML",
-		icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yaml/yaml-original.svg",
-	},
-	{
-		name: "Pandas",
-		icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
-	},
-];
-*/
-//nieuwe methode
 const skills = [
-	{
-		category: "Frontend Development",
-		technologies: [
-			{ name: "React", icon: "fab fa-react" },
-			{ name: "JavaScript", icon: "fab fa-js" },
-			{
-				name: "TypeScript",
-				icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-			},
-			{ name: "Bootstrap", icon: "fab fa-bootstrap" },
-		],
-	},
-	{
-		category: "Backend Development",
-		technologies: [
-			{ name: "C#", icon: "fab fa-cuttlefish" },
-			{ name: ".NET Core", icon: "fab fa-microsoft" },
-			{ name: "Node.js", icon: "fab fa-node" },
-			{ name: "Express", icon: "fas fa-server" },
-			{ name: "MySQL", icon: "fas fa-database" },
-			{ name: "MongoDB", icon: "fas fa-database" },
-		],
-	},
-	{
-		category: "DevOps & Cloud",
-		technologies: [
-			{ name: "Microsoft Azure", icon: "fab fa-microsoft" },
-			{ name: "Bicep", icon: "fas fa-code" },
-			{ name: "Azure DevOps", icon: "fab fa-microsoft" },
-			{ name: "YAML", icon: "fas fa-code" },
-		],
-	},
-	{
-		category: "Tools & Others",
-		technologies: [
-			{ name: "Python", icon: "fab fa-python" },
-			{ name: "Jira", icon: "fab fa-jira" },
-			{ name: "Pandas", icon: "fas fa-database" },
-			{ name: "Git", icon: "fab fa-git" },
-			{ name: "GitHub", icon: "fab fa-github" },
-			{ name: "Figma", icon: "fab fa-figma" },
-		],
-	},
+  {
+    category: "Frontend Development",
+    technologies: [
+      { name: "React - React router - React Query", icon: "fab fa-react" },
+      { name: "JavaScript", icon: "fab fa-js" },
+      {
+        name: "TypeScript",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      },
+      { name: "Bootstrap", icon: "fab fa-bootstrap" },
+      { name: "HTML5", icon: "fab fa-html5" },
+      { name: "CSS3", icon: "fab fa-css3-alt" },
+    ],
+  },
+  {
+    category: "Backend Development",
+    technologies: [
+      { name: "C#", icon: "fab fa-cuttlefish" },
+      { name: ".NET Core", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg"},
+      { name: "Node.js", icon: "fab fa-node" },
+      { name: "Express", icon: "fas fa-server" },
+      { name: "MySQL", icon: "fas fa-database" },
+      { name: "MongoDB", icon: "fas fa-database" },
+      { name: "Python", icon: "fab fa-python" },
+    ],
+  },
+  {
+    category: "DevOps & Cloud",
+    technologies: [
+      { name: "Microsoft Azure", icon: "fab fa-microsoft" },
+      { name: "Bicep", icon: "fas fa-code" },
+      { name: "YAML", icon: "fas fa-code" },
+	  { name: "Fabric", icon: "fas fa-layer-group" },
+	  { name: "PySpark", icon: "fab fa-python" },
+  
+      {
+        name: "Azure DevOps",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuredevops/azuredevops-original.svg",
+      },
+	  {name: "Testing: xUnit,TDD, BDD, Moq", icon: "fas fa-flask"} 
+    ],
+  },
+  {
+    category: "Network & Security",
+    technologies: [
+      {
+        name: "Wireshark",
+        icon: "https://www.vectorlogo.zone/logos/wireshark/wireshark-icon.svg",
+      },
+	  {name: "Postman", icon: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg"},
+	  {name: "Networking: HTTP/HTTPS, DNS, TCP/IP, SSH", icon: "fas fa-network-wired"},
+	  {name: "Authentication: JWT, OAuth, Session Management", icon: "fas fa-key"}	  
+    ],
+
+  },
+  {
+    category: "Tools & Others",
+    technologies: [
+      { name: "Jira", icon: "fab fa-jira" },
+      { name: "Git", icon: "fab fa-git" },
+      { name: "GitHub", icon: "fab fa-github" },
+      { name: "Figma", icon: "fab fa-figma" },
+      { name: "Docker", icon: "fab fa-docker" },
+      { name: "npm", icon: "fab fa-npm" },
+      { name: "Contentful", icon: "fas fa-cogs" },
+      { name: "Visual Studio", icon: "fas fa-laptop-code" },
+      { name: "Visual Studio Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+      { name: "R", icon: "fas fa-chart-line" },
+      { name: "Trello", icon: "fab fa-trello" },
+	  
+    ],
+  },
 ];
 ---
 
 <Layout
-	title="About Me"
-	description="Learn about my experience and skills as an IT developer"
-	pubDate={new Date("2025-01-01")}
+  title="About Me"
+  description="Learn about my experience and skills as an IT developer"
+  pubDate={new Date("2025-01-01")}
 >
-	<div class="hello-section">
-		<div class="profile-container">
-			<img src={landingpageImage} alt="Profile" class="profile-image" />
-			<div class="profile-content">
-				<h1>My Story</h1>
-				<p>
-					I’ve always been fascinated by the power of technology and
-					its ability to bring ideas to life. My work is driven by
-					curiosity and a commitment to learning something new every
-					day. Whether it’s building dynamic websites, creating
-					seamless user experiences, or tackling backend challenges, I
-					enjoy every step of the development process. On this site,
-					I’ll be sharing my experience during my internship at
-					Provinciehuis Antwerpen. Here, you’ll get a glimpse of how I
-					navigate real-world challenges, contribute to exciting
-					projects, and grow as a developer in a professional
-					environment. ​​ ​Additionally, you’ll find insights into my
-					journey as a developer, my projects on Github, and the tools
-					and technologies I use. I specialize in frontend
-					technologies like React and TypeScript and thrive in backend
-					development using frameworks like ASP.NET. I’m also
-					proficient in database management systems like MySQL. I’m
-					excited to share my journey with you and hope you find
-					inspiration and motivation in my work. Feel free to connect
-					with me on LinkedIn or Github to learn more about my
-					projects and experience. I look forward to connecting with
-					you!
-				</p>
-			</div>
-		</div>
-	</div>
+  <div class="hello-section">
+    <div class="profile-container">
+      <img src={landingpageImage} alt="Profile" class="profile-image" />
+      <div class="profile-content">
+        <h1>My Story</h1>
+        <p>
+          I’ve always been fascinated by the power of technology and its ability
+          to bring ideas to life. My work is driven by curiosity and a
+          commitment to learning something new every day. Whether it’s building
+          dynamic websites, creating seamless user experiences, or tackling
+          backend challenges, I enjoy every step of the development process. On
+          this site, I’ll be sharing my experience during my internship at
+          Provinciehuis Antwerpen. Here, you’ll get a glimpse of how I navigate
+          real-world challenges, contribute to exciting projects, and grow as a
+          developer in a professional environment. ​​ ​Additionally, you’ll find
+          insights into my journey as a developer, my projects on Github, and
+          the tools and technologies I use. I specialize in frontend
+          technologies like React and TypeScript and thrive in backend
+          development using frameworks like ASP.NET. I’m also proficient in
+          database management systems like MySQL. I’m excited to share my
+          journey with you and hope you find inspiration and motivation in my
+          work. Feel free to connect with me on LinkedIn or Github to learn more
+          about my projects and experience. I look forward to connecting with
+          you!
+        </p>
+      </div>
+    </div>
+  </div>
 
-	<div class="tie-up-section">
-		<h2>Tie up Internship</h2>
-		<div class="location-details">
-			<div class="detail-item">
-				<i data-lucide="map-pin" class="detail-icon"></i>
-				<a href="https://goo.gl/maps/your-location">
-					Kon. Elisabethlei 22, 2018 Antwerpen
-				</a>
-			</div>
-			<div class="detail-item">
-				<i data-lucide="home" class="detail-icon"></i>
-				<a href="https://www.provincieantwerpen.be">
-					Provinciehuis Antwerpen
-				</a>
-			</div>
-			<div class="detail-item">
-				<i data-lucide="code" class="detail-icon"></i>
-				<a href="#"> Back-end junior developer in integratieteam </a>
-			</div>
-			<div class="detail-item">
-				<i data-lucide="info" class="detail-icon"></i>
-				<a href="#">
-					Werkplek administratieve diensten Antwerpse provinciebestuur
-				</a>
-			</div>
-		</div>
-	</div>
+  <div class="tie-up-section">
+    <h2>Tie up Internship</h2>
+    <div class="location-details">
+      <div class="detail-item">
+        <i data-lucide="map-pin" class="detail-icon"></i>
+        <a href="https://goo.gl/maps/your-location">
+          Kon. Elisabethlei 22, 2018 Antwerpen
+        </a>
+      </div>
+      <div class="detail-item">
+        <i data-lucide="home" class="detail-icon"></i>
+        <a href="https://www.provincieantwerpen.be">
+          Provinciehuis Antwerpen
+        </a>
+      </div>
+      <div class="detail-item">
+        <i data-lucide="code" class="detail-icon"></i>
+        <a href="#"> Back-end junior developer in integratieteam </a>
+      </div>
+      <div class="detail-item">
+        <i data-lucide="info" class="detail-icon"></i>
+        <a href="#">
+          Werkplek administratieve diensten Antwerpse provinciebestuur
+        </a>
+      </div>
+    </div>
+  </div>
 
-	<section class="certifications">
-		<h2>Certifications</h2>
-		<div class="cert-card">
-		
-			<p>
-				<b>Microsoft Certified:</b> Azure Fundamentals (AZ-900)
-				<br />
-				Earned April 2025
-			</p>
-		</div>
-	</section>
+  <section class="certifications">
+    <h2>Certifications</h2>
+    <div class="cert-card">
+      <img
+        src="/certificate.png"
+        alt="Microsoft AZ-900 Azure Fundamentals Certificate"
+      />
+      <p>
+        <b>Microsoft Certified:</b> Azure Fundamentals (AZ-900)
+        <br />
+        Earned April 2025
+      </p>
+    </div>
+  </section>
 
-	<!-- map iframe -->
-	<!-- <div class="map-container">
+  <!-- map iframe -->
+  <!-- <div class="map-container">
 		<iframe
 			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2498.614620064987!2d4.409659776687444!3d51.21292623948629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3f7c4bdb9747f%3A0x46e3537e1e36c0d0!2sKoningin%20Elisabethlei%2022%2C%202018%20Antwerpen%2C%20Belgium!5e0!3m2!1sen!2sbe!4v1707494894949!5m2!1sen!2sbe"
 			width="100%"
@@ -194,261 +171,254 @@ const skills = [
 		>
 		</iframe>
 	</div>-->
-	
-	<div class="skills-section">
-		<h2 id="experienceText">
-			Hover over a technology to see my experience
-		</h2>
-		<div class="skills-grid">
-			{
-				skills.map((tech) => (
-					<div class="skill-item" data-technology={tech.name}>
-						<i class={`tech-icon ${tech.icon}`} />
-					</div>
-				))
-			}
-		</div>
-	</div>
-	
-	<section class="skills-section">
-		<h2 id="experienceText">
-			Hover over a technology to see my experience
-		</h2>
 
-		{
-			skills.map((category) => (
-				<div class="skills-category" key={category.category}>
-					<h3>{category.category}</h3>
-					<div class="skills-grid">
-						{category.technologies.map((tech) => (
-							<div
-								class="skill-item"
-								key={tech.name}
-								data-technology={tech.name}
-							>
-								{tech.icon.startsWith("http") ? (
-									<img
-										src={tech.icon}
-										alt={tech.name}
-										class="tech-icon"
-									/>
-								) : (
-									<i className={`tech-icon ${tech.icon}`} />
-								)}
-							</div>
-						))}
-					</div>
-				</div>
-			))
-		}
-	</section>
+  <div class="skills-section">
+    <h2 id="experienceText">Hover over a technology to see my experience</h2>
+  </div>
+
+  <section class="skills-section">
+    {
+      skills.map((category) => (
+          <h3>{category.category}</h3>
+          <div class="skills-grid">
+            {category.technologies.map((tech) => (
+              <div
+                class="skill-item"
+                key={tech.name}
+                data-technology={tech.name}
+              >
+                {tech.icon.startsWith("http") ? (
+                  <img src={tech.icon} alt={tech.name} class="tech-icon" />
+                ) : (
+                  <i className={`tech-icon ${tech.icon}`} />
+                )}
+              </div>
+            ))}
+          </div>
+      ))
+    }
+  </section>
 </Layout>
 
 <style>
-	.skills-section {
-		padding: 2rem;
-	}
+  .skills-section {
+    padding: 2rem;
+  }
 
-	h2 {
-		color: #ba5765;
-		font-size: 1.5rem;
-		margin-bottom: 2rem;
-	}
+  h2 , h3{
+    color: #ba5765;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
 
-	.skills-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-		gap: 2rem;
-		justify-items: center;
-		max-width: 1200px;
-		margin: 0 auto;
-	}
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-	.skill-item {
-		width: 60px;
-		height: 60px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		padding: 0.5rem;
-		border-radius: 8px;
-	}
+  .skill-item {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
 
-	.tech-icon {
-		font-size: 3rem;
-		color: #ba5765;
-		stroke-width: 1.5;
-		transition: all 0.3s ease;
-	}
+  .tech-icon {
+    font-size: 3rem;
+    stroke-width: 1.5;
+    transition: all 0.3s ease;
+  }
 
-	.skill-item:hover {
-		transform: scale(1.1);
-		background-color: #ba5765;
-	}
+  .skill-item:hover {
+    transform: scale(1.1);
+  }
 
-	.skill-item:hover .tech-icon {
-		stroke: #ba5765;
-	}
-	.hello-section {
-		padding: 4rem 2rem;
-		background-color: white;
-		color: #ba5765;
-	}
+  .hello-section {
+    padding: 4rem 2rem;
+    background-color: white;
+    color: #ba5765;
+  }
 
-	.profile-container {
-		max-width: 1200px;
-		margin: 0 auto;
-		display: grid;
-		grid-template-columns: 1fr 2fr;
-		gap: 4rem;
-		align-items: start;
-	}
+  .profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
 
-	.profile-image {
-		width: 100%;
-		max-width: 400px;
-		height: auto;
-		border-radius: 4px;
-	}
+  .profile-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 4px;
+  }
 
-	.profile-content h1 {
-		font-size: 3rem;
-		margin-bottom: 1.5rem;
-		color: #ba5765;
-	}
+  .profile-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #ba5765;
+  }
 
-	.profile-content p {
-		font-size: 1.1rem;
-		line-height: 1.6;
-		margin-bottom: 2rem;
-		color: #ba5765;
-	}
+  .profile-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #ba5765;
+  }
 
-	.social-links {
-		display: flex;
-		gap: 1.5rem;
-	}
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+  }
 
-	.social-icon {
-		width: 24px;
-		height: 24px;
-		color: #ba5765;
-		transition: color 0.3s ease;
-	}
+  .social-icon {
+    width: 24px;
+    height: 24px;
+    color: #ba5765;
+    transition: color 0.3s ease;
+  }
 
-	.social-icon:hover {
-		color: #ba5765;
-	}
+  .social-icon:hover {
+    color: #ba5765;
+  }
 
-	.tie-up-section {
-		padding: 4rem 2rem;
-		color: white;
-	}
+  .tie-up-section {
+    padding: 4rem 2rem;
+    color: white;
+  }
 
-	.tie-up-section h2 {
-		font-size: 3rem;
-		margin-bottom: 2rem;
-		color: #ba5765;
-		max-width: 1200px;
-		margin-left: auto;
-		margin-right: auto;
-	}
+  .tie-up-section h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #ba5765;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-	.location-details {
-		max-width: 1200px;
-		margin: 0 auto;
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-	}
+  .location-details {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 
-	.detail-item {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-	}
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 
-	.detail-icon {
-		width: 24px;
-		height: 24px;
-		color: #ba5765;
-	}
+  .detail-icon {
+    width: 24px;
+    height: 24px;
+    color: #ba5765;
+  }
 
-	.detail-item a {
-		color: #ba5765;
-		text-decoration: none;
-		transition: opacity 0.3s ease;
-	}
+  .detail-item a {
+    color: #ba5765;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
 
-	.detail-item a:hover {
-		opacity: 0.8;
-	}
+  .detail-item a:hover {
+    opacity: 0.8;
+  }
 
-	.map-container {
-		width: 100%;
-		max-width: 1200px;
-		margin: 2rem auto;
-		padding: 0 2rem;
-	}
+  .map-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
 
-	@media (max-width: 768px) {
-		.profile-container {
-			grid-template-columns: 1fr;
-			text-align: center;
-		}
+  @media (max-width: 768px) {
+    .profile-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
 
-		.profile-image {
-			margin: 0 auto;
-		}
+    .profile-image {
+      margin: 0 auto;
+    }
 
-		.social-links {
-			justify-content: center;
-		}
-	}
+    .social-links {
+      justify-content: center;
+    }
+  }
 
-	.certifications {
-		margin-top: 4rem;
-		text-align: center;
-	}
+  .certifications {
+    margin-top: 4rem;
+    text-align: center;
+  }
 
-	.cert-card img {
-		max-width: 500px;
-		width: 100%;
-		height: auto;
-		border-radius: 8px;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-		margin-top: 1rem;
-	}
+  .cert-card img {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+  }
 
-	.cert-card p {
-		color: #ba5765;
-		margin-top: 1rem;
-		font-weight: 500;
-	}
+  .cert-card p {
+    color: #ba5765;
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+  
+.tech-icon {
+  font-size: 3rem;
+  color: inherit; 
+  transition: all 0.3s ease;
+  stroke: none; 
+}
+
+/* For non-SVG icons or images within .tech-icon */
+.skill-item img {
+  filter: grayscale(0%) sepia(100%) saturate(0%) brightness(100%);
+}
+
+/* On hover, for images, make sure the grayscale is removed */
+.skill-item:hover img {
+  filter: none;
+}
+
+
 </style>
 
 <script>
-	// Update experience text on hover
-	const skillItems = document.querySelectorAll<HTMLElement>(".skill-item");
-	const experienceText = document.getElementById("experienceText");
+  // Update experience text on hover
+  const skillItems = document.querySelectorAll<HTMLElement>(".skill-item");
+  const experienceText = document.getElementById("experienceText");
 
-	skillItems.forEach((item) => {
-		item.addEventListener("mouseenter", () => {
-			const technology = item.getAttribute("data-technology");
-			if (experienceText) {
-				experienceText.textContent = `Experienced in: ${technology}`;
-			}
-			item.style.backgroundColor = "#FFF0DB";
-		});
+  skillItems.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      const technology = item.getAttribute("data-technology");
+      if (experienceText) {
+        experienceText.textContent = `Experienced in: ${technology}`;
+      }
+      item.style.backgroundColor = "#FFF0DB";
+    });
 
-		item.addEventListener("mouseleave", () => {
-			if (experienceText) {
-				experienceText.textContent =
-					"Hover over a technology to see my experience";
-			}
-			item.style.backgroundColor = "transparent";
-		});
-	});
+    item.addEventListener("mouseleave", () => {
+      if (experienceText) {
+        experienceText.textContent =
+          "Hover over a technology to see my experience";
+      }
+      item.style.backgroundColor = "transparent";
+    });
+  });
 </script>
