@@ -11,12 +11,17 @@ const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
 ---
 
 <div class="nav-item-container">
-	<a href={href} class:list={[className, { active: isActive }]} {...props}>
+	<a
+		href={dropdown ? "#" : href}
+		class:list={[className, { active: isActive }]}
+		{...props}
+		onclick={dropdown ? "return false;" : undefined}
+	>
 		<slot />
-		{dropdown && <span class="arrow">&#9660;</span>}
-	</a>
+		{dropdown && <span class="arrow">▼</span>}
+	</a>	</a>
 	{
-		dropdown && (
+		dropdown && dropdown.length > 0 ? (
 			<ul class="dropdown">
 				{dropdown.map((item) => (
 					<li>
@@ -26,7 +31,7 @@ const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
 					</li>
 				))}
 			</ul>
-		)
+		) : null
 	}
 </div>
 
