@@ -10,9 +10,7 @@ import { fetchBlogPosts } from "../lib/contentful";
 
 // Define the canonical URL for the current page
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
 const { title = "KubraCodes" } = Astro.props;
-
 // Fetch blog posts to extract week tags
 const posts = await fetchBlogPosts();
 
